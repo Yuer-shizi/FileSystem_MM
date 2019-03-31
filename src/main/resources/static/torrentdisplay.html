@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>种子</title>
+    <link rel="stylesheet" href="js/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="js/bootgrid/jquery.bootgrid.css">
+    <link href="js/assets/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>-->
+    <script src="js/util.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/assets/js/bootstrap.min.js"></script>
+    <script src="js/bootgrid/jquery.bootgrid.js"></script>
+    <script src="js/bootgrid/jquery.bootgrid.fa.js"></script>
+</head>
+<body >
+<!--显示文件信息模态框-->
+<div class="modal fade" id="showFileInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="showFileInfoModalLabel">查看详情：</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">文件Id:</label>
+                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileId1"></label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">文件名:</label>
+                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileName1"></label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">文件类型:</label>
+                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileSuffix1"></label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">创建时间:</label>
+                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileTime1"></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="updateFileInfoSubmit" type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--上传文件模态框-->
+<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="uploadFileModalLabel">上传文件：</h4>
+            </div>
+            <form id="uploadform" enctype="multipart/form-data" method="POST" action="/user/upload">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-right">选择文件:</label>
+                        <div class="col-sm-8">
+                            <!--<input type="file" name="file" id="single_file"/>-->
+                            <input type="file" name="file" id="single_file1"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-right">备注:</label>
+                        <div class="col-sm-8">
+                            <!--<input type="text"  class="form-control" name="filename" id="filename" />-->
+                            <input typr="text" name="filename" id="filename1"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="submit"onclick="upload()" class="btn btn-primary">上传</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="header">
+    <div class="top">
+        <div class="wp">
+            <div class="z">
+            </div>
+        </div>
+    </div>
+    <div class="wp">
+        <div class="logos">
+            <div class="logo z">
+                <h1><a href="homepage.html"><img src="img/logo.png" alt="???"></a></h1>
+            </div>
+            <div class="nav z">
+                <div class="wp">
+                    <ul>
+                        <li>
+                            <a href="homepage.html">首页 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="folderdisplay.html" id="wenjian">文件 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="vediodisplay.html">视频 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="audiodisplay.html">音乐 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="textdisplay.html">文本 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="torrentdisplay.html">种子 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="otherdisplay.html">其他 <span></span></a>
+                        </li>
+                        <li>
+                            <button class="buttonEx" id="uploadFileBtn">上传文件</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="wp" style="background-color: #363259">
+<a  class="wp" style="color: #e0e0e0">  </a>
+<a id="curr_dir" class="wp" style="color: #e0e0e0">  &nbsp;</a>
+</div>
+<div class="wp">
+    <table id="grid-data" class="table table-condensed table-hover table-striped">
+        <thead>
+        <tr>
+            <th style="width: 15%" data-column-id="fileid" data-type="numeric"
+                data-identifier="true">文件Id</th>
+            <th style="width: 35%" data-column-id="filename">文件名</th>
+            <th style="width: 35%" data-column-id="filename">备注</th>
+            <th style="width: 15%" data-column-id="commands" data-formatter="commands"
+                data-sortable="false">操作</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<script type="application/javascript">
+    var grid = $("#grid-data").bootgrid({
+        refresh:false,search:false,
+        ajax: true,
+        postData:{
+            suffix:"",
+        },
+        post: function() {
+            return {};
+        },
+        url: address+"get-torrent-list-by-user",
+        formatters: {
+            "commands": function(column, row) {
+                return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
+                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
+                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">删除文件</span></button>";
+            }
+        }
+    }).on("loaded.rs.jquery.bootgrid", function() {
+        grid.find(".command-edit").on("click", function(e) {
+            var id = $(this).data("row-id");
+            $.ajax({
+                async : false,
+                type : 'GET',
+                url : address+"get-file-by-fileid",
+                data : {
+                    "fileid":id,
+                },
+                dataType : 'json',
+                success : function(result) {
+                    var fileinfo = eval("(" + result.content + ")");
+                    $('#showFileInfoFileId1').text(fileinfo.fileid);
+                    $('#showFileInfoFileName1').text(fileinfo.filename);
+                    $('#showFileInfoFileSuffix1').text(fileinfo.suffix);
+                    $('#showFileInfoFileTime1').text(fileinfo.time);
+                    $('#showFileInfoModal').modal("show");
+                },
+                error : function(result) {
+                    alert('服务器异常');
+                }
+            });
+        }).end().find(".command-finshed").on("click", function(e) {
+            var id = $(this).data("row-id");
+            var fileName;
+
+            $.ajax({
+                async : false,
+                type : 'GET',
+                url : address+"get-file-by-fileid",
+                data : {
+                    "fileid":id
+                },
+                dataType : 'json',
+                success : function(result) {
+                    var fileinfo = eval("(" + result.content + ")");
+                    fileName = fileinfo.filename;
+                },
+                error : function(result) {
+                    alert('服务器异常');
+                }
+            });
+
+            $.get(address+"download-file-by-fileid", { fileid: id},
+                function(data){
+                    var blob = new Blob([data], {type: "application/x-msdownload"});
+                    // 创造一个连接以模仿点击下载过程
+                    var a = document.createElement("a");
+                    document.body.appendChild(a);
+                    a.download = fileName;
+                    a.href = URL.createObjectURL(blob);
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                    document.body.removeChild(a);
+                });
+        }).end().find(".command-delete").on("click", function(e) {
+            var id = $(this).data("row-id");
+            $.ajax({
+                async : false,
+                type : 'POST',
+                url : address+"delete-file-by-fileid",
+                data : {
+                    "fileid":id
+                },
+                dataType : 'json',
+                success : function(result) {
+                },
+                error : function(result) {
+                    alert('服务器异常');
+                }
+            });
+        });
+    });
+
+    $('#uploadFileBtn').click(function () {
+        $('#uploadFileModal').modal("show");
+    });
+
+    function upload() {
+        // var file = document.getElementById("single_file").value;
+        // file.name = document.getElementById("inputPassword").value;
+        var formData = new FormData();
+        var  file =$( "#uploadForm" )[0];
+        var name = $("#filename1").value;
+        formData.append("uploadform",file);
+        formData.append("filename",name);
+
+        var response;
+        var xhr =  $.ajax({
+            async : false,
+            type : 'POST',
+            url : address+"upload",
+            data : formData,
+            dataType : 'json',
+            success : function(result) {
+                response = result;
+            },
+            error : function(result) {
+                console.log(result);
+                alert('服务器异常');
+            }
+        });
+
+        if(response.status == "0"){
+            alert("上传成功！");
+            console.log(response);
+        }
+        else{
+            alert(response.content);
+        }
+    };
+</script>
+</body>
+</html>

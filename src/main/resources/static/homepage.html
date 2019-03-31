@@ -1,0 +1,567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="js/assets/css/bootstrap.css">
+    <link href="js/assets/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="js/bootgrid/jquery.bootgrid.css">
+	<link rel="stylesheet" href="css/style.css">
+
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>-->
+    <script src="js/util.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/assets/js/bootstrap.min.js"></script>
+    <script src="js/bootgrid/jquery.bootgrid.js"></script>
+    <script src="js/bootgrid/jquery.bootgrid.fa.js"></script>
+    <script src="js/Chart.js"></script>
+    <script src="js/chartutils.js"></script>
+</head>
+<body >
+<!--修改个人信息模态框-->
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改个人信息：</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">昵称:</label>
+                    <div class="col-sm-8">
+                        <input type="text"  class="form-control" name="resetPassworduserName" id="resetPassworduserName1" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">登录名:</label>
+                    <div class="col-sm-8">
+                        <input type="text"  class="form-control" name="resetPassworduserLoginName" id="resetPassworduserLoginName1" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">性别:</label>
+                    <div class="col-sm-5">
+                        <select id="resetPassworduserType1" class="selectpicker">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">QQ:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="resetPassworduserQQ" id="resetPassworduserQQ1" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">联系电话:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="resetPassworduserTel" id="resetPassworduserTel1" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">邮箱:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="resetPassworduserEmail" id="resetPassworduserEmail1" placeholder="" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="updateUserMessageSubmit" type="button" class="btn btn-primary">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--显示文件信息模态框-->
+<div class="modal fade" id="showFileInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="showFileInfoModalLabel">查看详情：</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">文件Id:</label>
+                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileId1"></label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">文件名:</label>
+                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileName1"></label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">文件类型:</label>
+                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileSuffix1"></label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 control-label text-right">创建时间:</label>
+                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileTime1"></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="updateFileInfoSubmit" type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--上传文件模态框-->
+<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="uploadFileModalLabel">上传文件：</h4>
+            </div>
+            <form id="uploadform" enctype="multipart/form-data" onsubmit="return false">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-right">选择文件:</label>
+                        <div class="col-sm-8">
+                            <!--<input type="file" name="file" id="single_file"/>-->
+                            <input type="file" name="file" id="single_file1"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 control-label text-right">备注:</label>
+                        <div class="col-sm-8">
+                            <!--<input type="text"  class="form-control" name="filename" id="filename" />-->
+                            <input typr="text" name="filename" id="filename1"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button onclick="upload()" class="btn btn-primary">上传</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="header">
+    <div class="top">
+        <div class="wp">
+            <div class="y" id="ed">
+                <span >
+                    <a class="welcome" href="#" id="wel" >welcome!</a>
+                </span>
+                <sapn style="color:#8c8d8d">|</sapn>
+                <span>
+                    <a href="index.html" onclick="logoff()">退出</a>
+                </span>
+            </div>
+
+            <script th:inline="javascript">
+
+                /*<![CDATA[*/
+                // var usersession =[[${session.user}]];
+
+                var usersession = getCookie("user")
+                var cookie = JSON.parse(usersession);
+                console.log(cookie);
+                var btn1=document.getElementById('ed');
+                var box1=document.getElementById('no');
+                function btn(){
+                    if(cookie == undefined)
+                        btn1.style.display="none";
+                    else {
+                        box1.style.display = "none";
+                        var wel = document.getElementById("wel");
+                        wel.innerText = "welcome!  " + cookie.username;
+                    }
+                }
+                btn();
+
+
+                function clearAllCookie() {
+                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    if(keys) {
+                        for(var i = keys.length; i--;)
+                            document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+                    }
+                }
+                        function getUrlPath(){
+                            var url = document.location.toString();
+                            if(url.indexOf("/") != -1){
+                                url = url.substring(0,  url.lastIndexOf("/")) ;
+                            }
+                            var url2 = url;
+                            var arrUrl = url2.split("//");
+
+                            var start = arrUrl[1].indexOf("/");
+                            var relUrl = arrUrl[1].substring(start);
+
+                            if(relUrl.indexOf("?") != -1){
+                                relUrl = relUrl.split("?")[0];
+                            }
+
+                            var temp = relUrl.substring(6);
+                            return temp;
+                        }
+                        console.log(getUrlPath());
+
+
+                function logoff() {
+                    var file ;
+                    var files = new Array(file);
+                    var response;
+                    $.ajax({
+                        async: false,
+                        type: 'GET',
+                        url: address + "exit",
+                        data: String,
+                        dataType: 'json',
+                        success: function (result) {
+                            response = result;
+                            console.log("1111");
+
+                        },
+                        error: function () {
+                            alert('服务器异常');
+                        }
+                    });
+                    console.log("1111");
+                    console.log(response.content);
+                    if (response.status == "0") {
+                        alert(response.content);
+                    }
+                }
+            </script>
+            <script src="js/util.js"></script>
+        </div>
+    </div>
+    <div class="wp">
+        <div class="logos">
+            <div class="logo z">
+                <h1><a href="homepage.html"><img src="img/logo.png" alt="???"></a></h1>
+            </div>
+            <div class="nav z">
+                <div class="wp">
+                    <ul>
+                        <li>
+                            <a href="homepage.html">首页 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="folderdisplay.html" id="wenjian">文件 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="vediodisplay.html">视频 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="audiodisplay.html">音乐 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="textdisplay.html">文本 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="torrentdisplay.html">种子 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="otherdisplay.html">其他 <span></span></a>
+                        </li>
+                        <li>
+                            <button class="buttonEx" id="uploadFileBtn">上传文件</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wp" style="background-color: #363259">
+        <a id="curr_dir" class="wp" style="color: #e0e0e0">&nbsp;</a>
+    </div>
+    <div class="wp">
+        <table id="grid-data" class="table table-condensed table-hover table-striped">
+            <thead>
+            <tr>
+                <th style="width: 15%" data-column-id="fileid" data-type="numeric"
+                    data-identifier="true">文件Id</th>
+                <th style="width: 35%" data-column-id="filename">文件名</th>
+                <th style="width: 35%" data-column-id="remark">备注</th>
+                <th style="width: 15%" data-column-id="commands" data-formatter="commands"
+                    data-sortable="false">操作</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <br/>
+    <div class="wp">
+        <h2>文件类型分布：</h2>
+        <div id="canvas-holder" style="width:80%">
+            <canvas id="chart-area"></canvas>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="wp">
+        <h2>近7天文件上传量：</h2>
+        <div id="container" style="width: 80%;">
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    var grid = $("#grid-data").bootgrid({
+        search:false,
+        ajax: true,
+        post: function() {
+            return {};
+        },
+        url: address+"get-list-by-user",
+        formatters: {
+            "commands": function(column, row) {
+                return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
+                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
+                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">删除文件</span></button>";
+            }
+        }
+    }).on("loaded.rs.jquery.bootgrid", function() {
+        grid.find(".command-edit").on("click", function(e) {
+            var id = $(this).data("row-id");
+            $.ajax({
+                async : false,
+                type : 'GET',
+                url : address+"get-file-by-fileid",
+                data : {
+                    "fileid":id,
+                },
+                dataType : 'json',
+                success : function(result) {
+                    var fileinfo = eval("(" + result.content + ")");
+                    $('#showFileInfoFileId1').text(fileinfo.fileid);
+                    $('#showFileInfoFileName1').text(fileinfo.filename);
+                    $('#showFileInfoFileSuffix1').text(fileinfo.suffix);
+                    $('#showFileInfoFileTime1').text(fileinfo.time);
+                    $('#showFileInfoModal').modal("show");
+                },
+                error : function(result) {
+                    alert('服务器异常');
+                }
+            });
+        }).end().find(".command-finshed").on("click", function() {
+            var id = $(this).data("row-id");
+            var fileName;
+
+            $.ajax({
+                async : false,
+                type : 'GET',
+                url : address+"get-file-by-fileid",
+                data : {
+                    "fileid":id
+                },
+                dataType : 'json',
+                success : function(result) {
+                    var fileinfo = eval("(" + result.content + ")");
+                    fileName = fileinfo.filename;
+                },
+                error : function() {
+                    alert('服务器异常');
+                }
+            });
+
+            $.get(address+"download-file-by-fileid", { fileid: id},
+                function(data){
+                    var blob = new Blob([data], {type: "application/x-msdownload"});
+                    // 创造一个连接以模仿点击下载过程
+                    var a = document.createElement("a");
+                    document.body.appendChild(a);
+                    a.download = fileName;
+                    a.href = URL.createObjectURL(blob);
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                    document.body.removeChild(a);
+                });
+        }).end().find(".command-delete").on("click", function(e) {
+            var id = $(this).data("row-id");
+            $.ajax({
+                async : false,
+                type : 'POST',
+                url : address+"delete-file-by-fileid",
+                data : {
+                    "fileid":id
+                },
+                dataType : 'json',
+                success : function(result) {
+                },
+                error : function(result) {
+                    alert('服务器异常');
+                }
+            });
+        });
+    });
+
+    $('#updateUserMessage').click(function () {
+        $('#resetPasswordModal').modal("show");
+    });
+
+    $('#uploadFileBtn').click(function () {
+        $('#uploadFileModal').modal("show");
+    });
+
+    function initPie() {
+        var video = 0;
+        var music = 0;
+        var text = 0;
+        var torrent = 0;
+        var other = 0;
+        $.ajax({
+            async : false,
+            type : 'GET',
+            url : address+"get-file-type-number",
+            dataType : 'json',
+            success : function(result) {
+                video = result.video;
+                music = result.music;
+                text = result.text;
+                torrent = result.torrent;
+                other = result.other;
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+        var config = {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        video,
+                        music,
+                        text,
+                        torrent,
+                        other,
+                    ],
+                    backgroundColor: [
+                        window.chartColors.red,
+                        window.chartColors.orange,
+                        window.chartColors.yellow,
+                        window.chartColors.green,
+                        window.chartColors.blue,
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    '视频',
+                    '音乐',
+                    '文本',
+                    '种子',
+                    '其他'
+                ]
+            },
+            options: {
+                responsive: true
+            }
+        };
+
+        var ctx = document.getElementById('chart-area').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+    }
+
+    function initBar() {
+        var last0Day = 0;
+        var last1Day = 0;
+        var last2Day = 0;
+        var last3Day = 0;
+        var last4Day = 0;
+        var last5Day = 0;
+        var last6Day = 0;
+        var last7Day = 0;
+        $.ajax({
+            async : false,
+            type : 'GET',
+            url : address+"get-last-seven-days-file-number",
+            dataType : 'json',
+            success : function(result) {
+                last0Day = result.last0;
+                last1Day = result.last1;
+                last2Day = result.last2;
+                last3Day = result.last3;
+                last4Day = result.last4;
+                last5Day = result.last5;
+                last6Day = result.last6;
+                last7Day = result.last7;
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+
+        var color = Chart.helpers.color;
+        var barChartData = {
+            labels: ['今天', '前1天', '前2天', '前3天', '前4天', '前5天', '前6天', '前7天'],
+            datasets: [{
+                label: '文件数量',
+                backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: window.chartColors.blue,
+                borderWidth: 1,
+                data: [
+                    last0Day,
+                    last1Day,
+                    last2Day,
+                    last3Day,
+                    last4Day,
+                    last5Day,
+                    last6Day,
+                    last7Day,
+                ]
+            }]
+        };
+
+        var ctx = document.getElementById('canvas').getContext('2d');
+        window.myBar = new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                }
+            }
+        });
+    }
+
+    function upload() {
+        var formData = new FormData();
+        var file = document.getElementById("single_file1").files[0];
+        var name = $("#filename1").val();
+        formData.append("file",file);
+        formData.append("filename",name);
+
+        $.ajax({
+            async : false,
+            type : "POST",
+            url : address+"upload",
+            processData: false,
+            contentType: false,
+            data : formData,
+            success : function(result) {
+                alert(result);
+                window.location.reload();
+                console.log(result);
+            },
+            error : function(result) {
+                console.log(result);
+                alert('服务器异常' + result);
+            }
+        });
+    }
+
+    window.onload = function() {
+        initPie();
+        initBar();
+    };
+</script>
+</body>
+</html>

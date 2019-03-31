@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆页面</title>
+    <link rel="stylesheet" href="css/login.css">
+    <!--<link rel="stylesheet" type="text/css" href="css/login.css">-->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/util.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".name input").focus(function(){
+                $(this).prev("i").css({"background-image":"url(img/user2.png)"});
+            });
+            $(".name input").blur(function(){
+                $(this).prev("i").css({"background-image":"url(img/user1.png)"});
+            });
+            $(".password input").focus(function(){
+                $(this).prev("i").css({"background-image":"url(img/password2.png)"});
+            });
+            $(".password input").blur(function(){
+                $(this).prev("i").css({"background-image":"url(img/password1.png)"});
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="wrap">
+        <header><em><img src="img/logoImage.png"></em><span>云文件管理系统</span></header>
+        <article>
+            <section>
+                <aside>
+                    <em>
+                        <img src="img/user.png">
+                    </em>
+                    <form action="" method="post">
+                        <p class="name"><i></i><input type="text" id="username" name="userName" name="userName" class="userName" placeholder="请输入用户名"></p>
+                        <p class="password"><i></i><input id="password" type="password" name="password" class="pwd" placeholder="请输入密码"></p>
+                        <button onclick="login()">登录</button>
+                        <p class="regist"><span>没有账号?</span><a href="register.html">立即注册</a></p>
+                        <p class="resetPassword"><span>忘记密码?</span><a id="resetPassword">重置密码</a></p>
+                        <div class="clear"></div>
+                    </form>
+                </aside>
+            </section>
+        </article>
+    </div>
+</div>
+<script type="application/javascript">
+    function login() {
+        var user = {};
+        user.username = $("#username").val();
+        user.password = $("#password").val();
+        var response;
+        $.ajax({
+            async : false,
+            type : 'POST',
+            url : address + "login",
+            data : user,
+            dataType : 'json',
+            success : function(result) {
+                response = result;
+            },
+            error : function(result) {
+                alert('服务器异常');
+            }
+        });
+        if(response.status == "0"){
+            var date = new Date();
+            date.setTime(date.getTime()+1*100);
+            setCookie("user",response.content,date);
+            window.location.href=address + "homepage.html";
+            window.event.returnValue=false;
+        }
+        else{
+            alert(response.content);
+        }
+    }
+</script>
+</body>
+</html>
