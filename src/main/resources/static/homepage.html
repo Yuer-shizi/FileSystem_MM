@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" href="js/assets/css/bootstrap.css">
-    <link href="js/assets/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="js/bootgrid/jquery.bootgrid.css">
-	<link rel="stylesheet" href="css/style.css">
+    <link href="js/assets/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
-    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>-->
     <script src="js/util.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/assets/js/bootstrap.min.js"></script>
@@ -17,9 +16,10 @@
     <script src="js/Chart.js"></script>
     <script src="js/chartutils.js"></script>
 </head>
-<body >
+<body>
 <!--修改个人信息模态框-->
-<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,21 +28,23 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">昵称:</label>
+                    <label for="resetPassworduserName1" class="col-sm-3 control-label text-right">昵称:</label>
                     <div class="col-sm-8">
-                        <input type="text"  class="form-control" name="resetPassworduserName" id="resetPassworduserName1" />
+                        <input type="text" class="form-control" name="resetPassworduserName"
+                               id="resetPassworduserName1"/>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">登录名:</label>
+                    <label for="resetPassworduserLoginName1" class="col-sm-3 control-label text-right">登录名:</label>
                     <div class="col-sm-8">
-                        <input type="text"  class="form-control" name="resetPassworduserLoginName" id="resetPassworduserLoginName1" />
+                        <input type="text" class="form-control" name="resetPassworduserLoginName"
+                               id="resetPassworduserLoginName1"/>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">性别:</label>
+                    <label for="resetPassworduserType1" class="col-sm-3 control-label text-right">性别:</label>
                     <div class="col-sm-5">
                         <select id="resetPassworduserType1" class="selectpicker">
                             <option value="男">男</option>
@@ -54,21 +56,24 @@
                 <div class="form-group row">
                     <label class="col-sm-3 control-label text-right">QQ:</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="text" name="resetPassworduserQQ" id="resetPassworduserQQ1" placeholder="" />
+                        <input class="form-control" type="text" name="resetPassworduserQQ" id="resetPassworduserQQ1"
+                               placeholder=""/>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-3 control-label text-right">联系电话:</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="text" name="resetPassworduserTel" id="resetPassworduserTel1" placeholder="" />
+                        <input class="form-control" type="text" name="resetPassworduserTel" id="resetPassworduserTel1"
+                               placeholder=""/>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-3 control-label text-right">邮箱:</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="text" name="resetPassworduserEmail" id="resetPassworduserEmail1" placeholder="" />
+                        <input class="form-control" type="text" name="resetPassworduserEmail"
+                               id="resetPassworduserEmail1" placeholder=""/>
                     </div>
                 </div>
             </div>
@@ -80,7 +85,8 @@
     </div>
 </div>
 <!--显示文件信息模态框-->
-<div class="modal fade" id="showFileInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="showFileInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -112,8 +118,10 @@
         </div>
     </div>
 </div>
+
 <!--上传文件模态框-->
-<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -125,15 +133,13 @@
                     <div class="form-group row">
                         <label class="col-sm-3 control-label text-right">选择文件:</label>
                         <div class="col-sm-8">
-                            <!--<input type="file" name="file" id="single_file"/>-->
                             <input type="file" name="file" id="single_file1"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 control-label text-right">备注:</label>
+                        <label for="filename1" class="col-sm-3 control-label text-right">备注:</label>
                         <div class="col-sm-8">
-                            <!--<input type="text"  class="form-control" name="filename" id="filename" />-->
-                            <input typr="text" name="filename" id="filename1"/>
+                            <input type="text" name="filename" id="filename1"/>
                         </div>
                     </div>
                 </div>
@@ -150,10 +156,10 @@
     <div class="top">
         <div class="wp">
             <div class="y" id="ed">
-                <span >
-                    <a class="welcome" href="#" id="wel" >welcome!</a>
+                <span>
+                    <a class="welcome" href="#" id="wel">welcome!</a>
                 </span>
-                <sapn style="color:#8c8d8d">|</sapn>
+                <span style="color:#8c8d8d">|</span>
                 <span>
                     <a href="index.html" onclick="logoff()">退出</a>
                 </span>
@@ -164,55 +170,51 @@
                 /*<![CDATA[*/
                 // var usersession =[[${session.user}]];
 
-                var usersession = getCookie("user")
+                var usersession = getCookie("user");
                 var cookie = JSON.parse(usersession);
                 console.log(cookie);
-                var btn1=document.getElementById('ed');
-                var box1=document.getElementById('no');
-                function btn(){
-                    if(cookie == undefined)
-                        btn1.style.display="none";
+                var btn1 = document.getElementById('ed');
+
+                function btn() {
+                    if (cookie === undefined)
+                        btn1.style.display = "none";
                     else {
-                        box1.style.display = "none";
                         var wel = document.getElementById("wel");
                         wel.innerText = "welcome!  " + cookie.username;
                     }
                 }
-                btn();
 
+                btn();
 
                 function clearAllCookie() {
                     var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
-                    if(keys) {
-                        for(var i = keys.length; i--;)
+                    if (keys) {
+                        for (var i = keys.length; i--;)
                             document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
                     }
                 }
-                        function getUrlPath(){
-                            var url = document.location.toString();
-                            if(url.indexOf("/") != -1){
-                                url = url.substring(0,  url.lastIndexOf("/")) ;
-                            }
-                            var url2 = url;
-                            var arrUrl = url2.split("//");
 
-                            var start = arrUrl[1].indexOf("/");
-                            var relUrl = arrUrl[1].substring(start);
+                function getUrlPath() {
+                    var url = document.location.toString();
+                    if (url.indexOf("/") !== -1) {
+                        url = url.substring(0, url.lastIndexOf("/"));
+                    }
+                    var arrUrl = url.split("//");
 
-                            if(relUrl.indexOf("?") != -1){
-                                relUrl = relUrl.split("?")[0];
-                            }
+                    var start = arrUrl[1].indexOf("/");
+                    var relUrl = arrUrl[1].substring(start);
 
-                            var temp = relUrl.substring(6);
-                            return temp;
-                        }
-                        console.log(getUrlPath());
+                    if (relUrl.indexOf("?") !== -1) {
+                        relUrl = relUrl.split("?")[0];
+                    }
+                    return relUrl.substring(6);
+                }
+
+                console.log(getUrlPath());
 
 
                 function logoff() {
-                    var file ;
-                    var files = new Array(file);
-                    var response;
+                    var response = {};
                     $.ajax({
                         async: false,
                         type: 'GET',
@@ -221,16 +223,16 @@
                         dataType: 'json',
                         success: function (result) {
                             response = result;
-                            console.log("1111");
-
+                            clearAllCookie()
                         },
-                        error: function () {
+                        error: function (error) {
+                            console.log(error);
                             alert('服务器异常');
                         }
                     });
-                    console.log("1111");
                     console.log(response.content);
-                    if (response.status == "0") {
+                    if (response.status === "0") {
+                        clearAllCookie();
                         alert(response.content);
                     }
                 }
@@ -275,67 +277,69 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="wp" style="background-color: #363259">
-        <a id="curr_dir" class="wp" style="color: #e0e0e0">&nbsp;</a>
+<div class="wp" style="background-color: #363259">
+    <a class="wp" style="color: #e0e0e0">&nbsp;</a>
+    <a id="curr_dir" class="wp" style="color: #e0e0e0"></a>
+</div>
+<div class="wp">
+    <table id="grid-data" class="table table-condensed table-hover table-striped">
+        <thead>
+        <tr>
+            <th style="width: 15%" data-column-id="fileid" data-type="numeric"
+                data-identifier="true">文件Id
+            </th>
+            <th style="width: 35%" data-column-id="filename">文件名</th>
+            <th style="width: 35%" data-column-id="remark">备注</th>
+            <th style="width: 15%" data-column-id="commands" data-formatter="commands" data-sortable="false">操作</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<br/>
+<div class="wp">
+    <h2>文件类型分布：</h2>
+    <div id="canvas-holder" style="width:80%">
+        <canvas id="chart-area"></canvas>
     </div>
-    <div class="wp">
-        <table id="grid-data" class="table table-condensed table-hover table-striped">
-            <thead>
-            <tr>
-                <th style="width: 15%" data-column-id="fileid" data-type="numeric"
-                    data-identifier="true">文件Id</th>
-                <th style="width: 35%" data-column-id="filename">文件名</th>
-                <th style="width: 35%" data-column-id="remark">备注</th>
-                <th style="width: 15%" data-column-id="commands" data-formatter="commands"
-                    data-sortable="false">操作</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
-    <br/>
-    <div class="wp">
-        <h2>文件类型分布：</h2>
-        <div id="canvas-holder" style="width:80%">
-            <canvas id="chart-area"></canvas>
-        </div>
-    </div>
-    <br/>
-    <br/>
-    <div class="wp">
-        <h2>近7天文件上传量：</h2>
-        <div id="container" style="width: 80%;">
-            <canvas id="canvas"></canvas>
-        </div>
+</div>
+<br/>
+<br/>
+<div class="wp">
+    <h2>近7天文件上传量：</h2>
+    <div id="container" style="width: 80%;">
+        <canvas id="canvas"></canvas>
     </div>
 </div>
 <script type="application/javascript">
     var grid = $("#grid-data").bootgrid({
-        search:false,
+        refresh: false,
+        search: false,
         ajax: true,
-        post: function() {
+        post: function () {
             return {};
         },
-        url: address+"get-list-by-user",
+        url: address + "get-list-by-user",
         formatters: {
-            "commands": function(column, row) {
+            "commands": function (column, row) {
                 return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
                     "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
                     "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">删除文件</span></button>";
             }
         }
-    }).on("loaded.rs.jquery.bootgrid", function() {
-        grid.find(".command-edit").on("click", function(e) {
+    }).on("loaded.rs.jquery.bootgrid", function () {
+        grid.find(".command-edit").on("click", function () {
             var id = $(this).data("row-id");
             $.ajax({
-                async : false,
-                type : 'GET',
-                url : address+"get-file-by-fileid",
-                data : {
-                    "fileid":id,
+                async: false,
+                type: 'GET',
+                url: address + "get-file-by-fileid",
+                data: {
+                    "fileid": id
                 },
-                dataType : 'json',
-                success : function(result) {
+                dataType: 'json',
+                success: function (result) {
                     var fileinfo = eval("(" + result.content + ")");
                     $('#showFileInfoFileId1').text(fileinfo.fileid);
                     $('#showFileInfoFileName1').text(fileinfo.filename);
@@ -343,33 +347,33 @@
                     $('#showFileInfoFileTime1').text(fileinfo.time);
                     $('#showFileInfoModal').modal("show");
                 },
-                error : function(result) {
+                error: function () {
                     alert('服务器异常');
                 }
             });
-        }).end().find(".command-finshed").on("click", function() {
+        }).end().find(".command-finshed").on("click", function () {
             var id = $(this).data("row-id");
             var fileName;
 
             $.ajax({
-                async : false,
-                type : 'GET',
-                url : address+"get-file-by-fileid",
-                data : {
-                    "fileid":id
+                async: false,
+                type: 'GET',
+                url: address + "get-file-by-fileid",
+                data: {
+                    "fileid": id
                 },
-                dataType : 'json',
-                success : function(result) {
+                dataType: 'json',
+                success: function (result) {
                     var fileinfo = eval("(" + result.content + ")");
                     fileName = fileinfo.filename;
                 },
-                error : function() {
+                error: function () {
                     alert('服务器异常');
                 }
             });
 
-            $.get(address+"download-file-by-fileid", { fileid: id},
-                function(data){
+            $.get(address + "download-file-by-fileid", {fileid: id},
+                function (data) {
                     var blob = new Blob([data], {type: "application/x-msdownload"});
                     // 创造一个连接以模仿点击下载过程
                     var a = document.createElement("a");
@@ -380,19 +384,19 @@
                     URL.revokeObjectURL(a.href);
                     document.body.removeChild(a);
                 });
-        }).end().find(".command-delete").on("click", function(e) {
+        }).end().find(".command-delete").on("click", function () {
             var id = $(this).data("row-id");
             $.ajax({
-                async : false,
-                type : 'POST',
-                url : address+"delete-file-by-fileid",
-                data : {
-                    "fileid":id
+                async: false,
+                type: 'POST',
+                url: address + "delete-file-by-fileid",
+                data: {
+                    "fileid": id
                 },
-                dataType : 'json',
-                success : function(result) {
+                dataType: 'json',
+                success: function (result) {
                 },
-                error : function(result) {
+                error: function () {
                     alert('服务器异常');
                 }
             });
@@ -414,18 +418,18 @@
         var torrent = 0;
         var other = 0;
         $.ajax({
-            async : false,
-            type : 'GET',
-            url : address+"get-file-type-number",
-            dataType : 'json',
-            success : function(result) {
+            async: false,
+            type: 'GET',
+            url: address + "get-file-type-number",
+            dataType: 'json',
+            success: function (result) {
                 video = result.video;
                 music = result.music;
                 text = result.text;
                 torrent = result.torrent;
                 other = result.other;
             },
-            error : function(result) {
+            error: function () {
                 alert('服务器异常');
             }
         });
@@ -438,14 +442,14 @@
                         music,
                         text,
                         torrent,
-                        other,
+                        other
                     ],
                     backgroundColor: [
                         window.chartColors.red,
                         window.chartColors.orange,
                         window.chartColors.yellow,
                         window.chartColors.green,
-                        window.chartColors.blue,
+                        window.chartColors.blue
                     ],
                     label: 'Dataset 1'
                 }],
@@ -476,11 +480,11 @@
         var last6Day = 0;
         var last7Day = 0;
         $.ajax({
-            async : false,
-            type : 'GET',
-            url : address+"get-last-seven-days-file-number",
-            dataType : 'json',
-            success : function(result) {
+            async: false,
+            type: 'GET',
+            url: address + "get-last-seven-days-file-number",
+            dataType: 'json',
+            success: function (result) {
                 last0Day = result.last0;
                 last1Day = result.last1;
                 last2Day = result.last2;
@@ -490,7 +494,7 @@
                 last6Day = result.last6;
                 last7Day = result.last7;
             },
-            error : function(result) {
+            error: function () {
                 alert('服务器异常');
             }
         });
@@ -511,7 +515,7 @@
                     last4Day,
                     last5Day,
                     last6Day,
-                    last7Day,
+                    last7Day
                 ]
             }]
         };
@@ -523,10 +527,10 @@
             options: {
                 responsive: true,
                 legend: {
-                    position: 'top',
+                    position: 'top'
                 },
                 title: {
-                    display: true,
+                    display: true
                 }
             }
         });
@@ -536,29 +540,29 @@
         var formData = new FormData();
         var file = document.getElementById("single_file1").files[0];
         var name = $("#filename1").val();
-        formData.append("file",file);
-        formData.append("filename",name);
+        formData.append("file", file);
+        formData.append("filename", name);
 
         $.ajax({
-            async : false,
-            type : "POST",
-            url : address+"upload",
+            async: false,
+            type: "POST",
+            url: address + "upload",
             processData: false,
             contentType: false,
-            data : formData,
-            success : function(result) {
+            data: formData,
+            success: function (result) {
                 alert(result);
                 window.location.reload();
                 console.log(result);
             },
-            error : function(result) {
+            error: function (result) {
                 console.log(result);
                 alert('服务器异常' + result);
             }
         });
     }
 
-    window.onload = function() {
+    window.onload = function () {
         initPie();
         initBar();
     };

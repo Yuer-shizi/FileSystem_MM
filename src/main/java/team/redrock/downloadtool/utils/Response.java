@@ -11,14 +11,6 @@ public class Response {
 
     private String status;
     private Object content;
-
-
-//
-//    public static void main(String[] args) {
-//        Response response = new Response("0","你好呀");
-//        System.out.println(response);
-//        return;
-//    }
 }
 
 

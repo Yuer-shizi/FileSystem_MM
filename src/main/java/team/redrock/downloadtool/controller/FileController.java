@@ -1,21 +1,15 @@
 package team.redrock.downloadtool.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import team.redrock.downloadtool.entity.FileInf;
-import team.redrock.downloadtool.entity.Folder;
 import team.redrock.downloadtool.service.FileService;
 import team.redrock.downloadtool.service.FolderService;
 import team.redrock.downloadtool.utils.Response;
 import team.redrock.downloadtool.utils.Utility;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class FileController {

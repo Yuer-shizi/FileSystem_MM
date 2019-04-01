@@ -1,23 +1,11 @@
 package team.redrock.downloadtool.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import team.redrock.downloadtool.entity.FileInf;
 import team.redrock.downloadtool.jpa.FileInfJPA;
-import team.redrock.downloadtool.service.FileService;
-import team.redrock.downloadtool.utils.Response;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -30,12 +18,10 @@ public class DownloadController {
     @RequestMapping(value = "/download/{name}", method = RequestMethod.GET)
     public void getDownload( @PathVariable(value = "name") String name,HttpServletRequest request, HttpServletResponse response) {
         // Get your file stream from wherever.
-//        String name = "复仇者联盟3.mp4";
         if (name == null)
             System.out.println("name no found");
         else {
             String fullPath = "D://temp/" + name;                  //注意要是本地的
-//            String fullPath = "/usr/java/yunpan/"+name;
 
             File downloadFile = new File(fullPath);
 
@@ -131,7 +117,7 @@ public class DownloadController {
     }
 
     @GetMapping("/download-file-by-fileid")
-    public void downloadFile(@RequestParam("fileid") Integer fileid, HttpServletRequest request, HttpServletResponse response) {
+    public void downloadFile(@RequestParam("fileid") Integer fileid, HttpServletResponse response) {
         File file = new File(fileInfJPA.findByFileid(fileid).getFilepath());
         response.setHeader("content-type", "application/octet-stream");
         response.setContentType("application/octet-stream");
@@ -139,7 +125,6 @@ public class DownloadController {
 
         InputStream in = null;
         OutputStream out;
-
         try {
             in = new FileInputStream(file.getPath());
             int len;

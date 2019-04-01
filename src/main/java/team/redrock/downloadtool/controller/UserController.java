@@ -37,15 +37,15 @@ public class UserController {
 @GetMapping(value = "/exit")
     public Response userLogoff(HttpServletRequest request, HttpServletResponse response){
         HttpSession session =request.getSession(false);
-            session.invalidate();
+        session.invalidate();
 
-    Cookie[] cookies = request.getCookies();
-    for (Cookie cookie : cookies) {
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
+            return new Response("0", "退出登录成功");
     }
-        return new Response("0", "退出登录成功");
-}
 //    @GetMapping
 //    public String messageForm(Model model,HttpServletRequest request) {
 //

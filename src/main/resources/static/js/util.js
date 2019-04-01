@@ -10,30 +10,3 @@ function getCookie(name) {
     var v = window.document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return v ? v[2] : null;
 }
-//
-// function getUserName(userId) {
-//     var user = {};
-//     user.userId = userId;
-//     var response;
-//     $.ajax({
-//         async : false,
-//         type : 'POST',
-//         url : address+"getUser",
-//         data : user,
-//         dataType : 'json',
-//         success : function(result) {
-//             response = result;
-//         },
-//         error : function(result) {
-//             alert('服务器异常');
-//         }
-//     });
-//     if(response.status == "0"){
-//         var user = response.content;
-//         user = JSON.parse(user);
-//         return user.username;
-//     }
-//     else{
-//         alert(response.content);
-//     }
-// }

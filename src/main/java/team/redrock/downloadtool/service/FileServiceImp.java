@@ -86,8 +86,7 @@ public class FileServiceImp implements FileService {
 
     @Override
     public Response fileSelect(String filename, String username) {
-        FileInf fileInf = new FileInf();
-        fileInf = fileInfJPA.findByFilenameAndUsername(filename, username);
+        FileInf fileInf = fileInfJPA.findByFilenameAndUsername(filename, username);
         if(fileInf==null) {
             return new Response("-1","文件不存在");
         }
@@ -96,8 +95,7 @@ public class FileServiceImp implements FileService {
 
     @Override
     public Response fileList() {
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.FindAllById();
+        List<FileInf> fileInfs = fileInfJPA.FindAllById();
         return new Response("0", JSON.toJSONString(fileInfs));
 
     }
@@ -106,8 +104,7 @@ public class FileServiceImp implements FileService {
     public JSONObject getListByUser(Integer current, Integer rowCount, HttpServletRequest request) {
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.GetAllByUsernameAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs = fileInfJPA.GetAllByUsernameAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
@@ -118,8 +115,7 @@ public class FileServiceImp implements FileService {
     public JSONObject getVideoListByUser(Integer current, Integer rowCount, HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.GetVideoListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs = fileInfJPA.GetVideoListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
@@ -131,8 +127,7 @@ public class FileServiceImp implements FileService {
     public JSONObject getMusicListByUser(Integer current, Integer rowCount, HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.GetMusicListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs = fileInfJPA.GetMusicListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
@@ -144,8 +139,7 @@ public class FileServiceImp implements FileService {
     public JSONObject getTextByUser(Integer current, Integer rowCount, HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.GetTextListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs = fileInfJPA.GetTextListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
@@ -157,8 +151,7 @@ public class FileServiceImp implements FileService {
     public JSONObject getTorrentByUser(Integer current, Integer rowCount, HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.GetTorrentListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs = fileInfJPA.GetTorrentListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
@@ -212,34 +205,30 @@ public class FileServiceImp implements FileService {
     }
 
     public boolean isFileExist(String filename, String username){
-        return fileInfJPA.findByFilenameAndUsername(filename, username) != null ? true : false;
+        return fileInfJPA.findByFilenameAndUsername(filename, username) != null;
     }
 
     @Override
     public Response AudioList() {
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.SelectAudio();
+        List<FileInf> fileInfs = fileInfJPA.SelectAudio();
         return new Response("0",JSON.toJSONString(fileInfs));
     }
 
     @Override
     public Response VedioList() {
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.SelectVideo();
+        List<FileInf> fileInfs = fileInfJPA.SelectVideo();
         return new Response("0",JSON.toJSONString(fileInfs));
     }
 
     @Override
     public Response TextList() {
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.SelectText();
+        List<FileInf> fileInfs = fileInfJPA.SelectText();
         return new Response("0",JSON.toJSONString(fileInfs));
     }
 
     @Override
     public Response TorrentList() {
-        List<FileInf> fileInfs = new ArrayList<>();
-        fileInfs = fileInfJPA.SelectTorrent();
+        List<FileInf> fileInfs = fileInfJPA.SelectTorrent();
         return new Response("0",JSON.toJSONString(fileInfs));
     }
 
@@ -264,7 +253,7 @@ public class FileServiceImp implements FileService {
         }
     }
 
-    public static List<String> GetPastDaysList(int intervals) {
+    private static List<String> GetPastDaysList(int intervals) {
         ArrayList<String> pastDaysList = new ArrayList<>();
         for (int i = 0; i <intervals; i++) {
             pastDaysList.add(getPastDate(i));
@@ -275,13 +264,12 @@ public class FileServiceImp implements FileService {
     /**
      * 获取过去第几天的日期
      */
-    public static String getPastDate(int past) {
+    private static String getPastDate(int past) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - past);
         Date today = calendar.getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String result = format.format(today);
-        return result;
+        return format.format(today);
     }
 
 }
