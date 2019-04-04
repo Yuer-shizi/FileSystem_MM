@@ -3,6 +3,8 @@ package team.redrock.downloadtool.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import team.redrock.downloadtool.entity.Download;
+import team.redrock.downloadtool.jpa.DownloadJPA;
 import team.redrock.downloadtool.jpa.FileInfJPA;
 
 import javax.servlet.ServletContext;
@@ -13,7 +15,10 @@ import java.io.*;
 @Controller
 public class DownloadController {
     @Autowired
-    FileInfJPA fileInfJPA;
+    FileInfJPA  fileInfJPA;
+
+    @Autowired
+    DownloadJPA downloadJPA;
 
     @RequestMapping(value = "/download/{name}", method = RequestMethod.GET)
     public void getDownload( @PathVariable(value = "name") String name,HttpServletRequest request, HttpServletResponse response) {
@@ -117,7 +122,7 @@ public class DownloadController {
     }
 
     @GetMapping("/download-file-by-fileid")
-    public void downloadFile(@RequestParam("fileid") Integer fileid, HttpServletResponse response) {
+    public void downloadFile(@RequestParam("fileid") Integer fileid, HttpServletRequest request, HttpServletResponse response) {
         File file = new File(fileInfJPA.findByFileid(fileid).getFilepath());
         response.setHeader("content-type", "application/octet-stream");
         response.setContentType("application/octet-stream");
@@ -133,14 +138,16 @@ public class DownloadController {
             while ((len = in.read(buffer)) > 0) {
                 out.write(buffer, 0, len);
             }
+            String username = request.getSession().getAttribute("user").toString();
+            downloadJPA.save(new Download(username));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         } finally {
             if (in != null) {
                 try {
                     in.close();
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
 
             }

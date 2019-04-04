@@ -44,7 +44,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button id="updateFileInfoSubmit" type="button" class="btn btn-primary">确定</button>
             </div>
         </div>
     </div>
@@ -174,13 +173,16 @@
     <div class="wp">
         <div class="logos">
             <div class="logo z">
-                <h1><a href="homepage.html"><img src="img/logo.png" alt="???"></a></h1>
+                <a href="homepage.html"><img src="img/logo.png" alt="???"></a>
             </div>
             <div class="nav z">
                 <div class="wp">
                     <ul>
                         <li>
                             <a href="homepage.html">首页 <span></span></a>
+                        </li>
+                        <li>
+                            <a href="alldisplay.html">全部 <span></span></a>
                         </li>
                         <li>
                             <a href="folderdisplay.html">文档 <span></span></a>
@@ -207,9 +209,9 @@
     </div>
 </div>
 
-<div class="wp" style="background-color: #363259">
-    <a  class="wp" style="color: #e0e0e0">  </a>
-    <a id="curr_dir" class="wp" style="color: #e0e0e0">  &nbsp;</a>
+<div class="wp" style="background-color: #363259;z-index: 100">
+    <a class="wp" style="color: #e0e0e0">&nbsp;</a>
+    <a id="curr_dir" class="wp" style="color: #e0e0e0"></a>
 </div>
 <div class="wp">
     <table id="grid-data" class="table table-condensed table-hover table-striped">
@@ -237,7 +239,7 @@
         post: function () {
             return {};
         },
-        url: address+"get-music-list-by-user",
+        url: address + "get-music-list-by-user",
         formatters: {
             "commands": function (column, row) {
                 return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +

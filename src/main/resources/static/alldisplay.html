@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>种子</title>
+    <title>全部</title>
     <link rel="stylesheet" href="js/assets/css/bootstrap.css">
     <link rel="stylesheet" href="js/bootgrid/jquery.bootgrid.css">
     <link href="js/assets/css/font-awesome.css" rel="stylesheet">
@@ -209,7 +209,7 @@
     </div>
 </div>
 
-<div class="wp" style="background-color: #363259">
+<div class="wp" style="background-color: #363259;z-index: 100">
     <a class="wp" style="color: #e0e0e0">&nbsp;</a>
     <a id="curr_dir" class="wp" style="color: #e0e0e0"></a>
 </div>
@@ -239,7 +239,7 @@
         post: function () {
             return {};
         },
-        url: address + "get-torrent-list-by-user",
+        url: address + "get-list-by-user",
         formatters: {
             "commands": function (column, row) {
                 return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +

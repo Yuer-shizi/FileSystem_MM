@@ -2,7 +2,6 @@ package team.redrock.downloadtool.service;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import team.redrock.downloadtool.entity.User;
 import team.redrock.downloadtool.jpa.UserJPA;
@@ -22,12 +21,10 @@ public class UserServiceImp implements UserService {
     @Override
     public Response userRegister(String username,String password){
         if(Utility.IsNull(username)){
-            Response response = new Response("-1","用户名不能为空!");
-            return response;
+            return new Response("-1", "用户名不能为空!");
         }
         if(Utility.IsNull(password)){
-            Response response = new Response("-1","密码不能为空！");
-            return response;
+            return new Response("-1", "密码不能为空！");
         }
         if(userJPA.findByUserName(username)!=null)
         {
@@ -67,7 +64,7 @@ public class UserServiceImp implements UserService {
                     System.out.println("session为" + user1);
 
 //                System.out.println("当前用户登录"+request.getSession().getAttribute("user_session"));
-                    return new Response("0", JSON.toJSONString(user));
+                return new Response("0", user);
 
             }
 
