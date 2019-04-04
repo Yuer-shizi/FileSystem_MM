@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>文件</title>
+    <title>文档</title>
     <link rel="stylesheet" href="js/assets/css/bootstrap.css">
     <link rel="stylesheet" href="js/bootgrid/jquery.bootgrid.css">
     <link href="js/assets/css/font-awesome.css" rel="stylesheet">
@@ -183,16 +183,13 @@
                             <a href="homepage.html">首页 <span></span></a>
                         </li>
                         <li>
-                            <a href="folderdisplay.html" id="wenjian">文件 <span></span></a>
+                            <a href="folderdisplay.html">文档 <span></span></a>
                         </li>
                         <li>
                             <a href="vediodisplay.html">视频 <span></span></a>
                         </li>
                         <li>
                             <a href="audiodisplay.html">音乐 <span></span></a>
-                        </li>
-                        <li>
-                            <a href="textdisplay.html">文本 <span></span></a>
                         </li>
                         <li>
                             <a href="torrentdisplay.html">种子 <span></span></a>
@@ -230,6 +227,11 @@
 </div>
 <script type="application/javascript">
     var grid = $("#grid-data").bootgrid({
+        labels: {
+            noResults: "暂无数据",
+            infos: "当前第{{ctx.start}}到{{ctx.end}}行，共{{ctx.total}}条",
+            refresh: "刷新"
+        },
         search: false,
         ajax: true,
         post: function () {
@@ -238,9 +240,12 @@
         url: address + "get-text-list-by-user",
         formatters: {
             "commands": function (column, row) {
-                return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">删除文件</span></button>";
+                return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default " +
+                    "command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>" +
+                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default " +
+                    "command-download\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">下载文件</span></button>" +
+                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default " +
+                    "command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">删除文件</span></button>";
             }
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
@@ -266,7 +271,7 @@
                     alert('服务器异常');
                 }
             });
-        }).end().find(".command-finshed").on("click", function () {
+        }).end().find(".command-download").on("click", function () {
             var id = $(this).data("row-id");
             var fileName;
 

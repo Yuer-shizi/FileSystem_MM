@@ -39,7 +39,6 @@ public class CutPic {
             // 因此两者均可使用 Process.getInputStream() 方法读取。这使得关联错误消息和相应的输出变得更容易
             builder.start();
         } catch (Exception e) {
-            System.out.println(e);
             e.printStackTrace();
 
 

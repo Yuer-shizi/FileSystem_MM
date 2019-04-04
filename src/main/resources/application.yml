@@ -36,7 +36,8 @@ spring:
     filters: stat, wall, log4j
   jpa:
     hibernate:
-      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
       format_sql: true
     show_sql: true
@@ -46,8 +47,6 @@ spring:
     suffix: .html
     cache: false
     encoding: UTF-8
-    resources:
-      static-locations: ["/templates/","/resources/","/static/", "/css/"]
   servlet:
     multipart:
       max-file-size: 1024MB

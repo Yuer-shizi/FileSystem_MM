@@ -2,17 +2,14 @@ package team.redrock.downloadtool.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.redrock.downloadtool.entity.FileInf;
 import team.redrock.downloadtool.entity.Picture;
 import team.redrock.downloadtool.jpa.FileInfJPA;
-import team.redrock.downloadtool.jpa.PictureJPA;
 import team.redrock.downloadtool.utils.Response;
 import team.redrock.downloadtool.utils.Utility;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -23,9 +20,6 @@ import java.util.*;
 public class FileServiceImp implements FileService {
     @Autowired
     FileInfJPA fileInfJPA;
-
-    @Autowired
-    PictureJPA pictureJPA;
 
    @Override
     public Response fileUpload(String filepath,HttpServletRequest request) {
@@ -104,22 +98,30 @@ public class FileServiceImp implements FileService {
     public JSONObject getListByUser(Integer current, Integer rowCount, HttpServletRequest request) {
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = fileInfJPA.GetAllByUsernameAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs;
+        if (rowCount == -1)
+            fileInfs = fileInfJPA.getAllByUsername(username);
+        else
+            fileInfs = fileInfJPA.GetAllByUsernameAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
-        jsonObject.put("total", fileInfs.size());
+        jsonObject.put("total", fileInfJPA.GetAllNumberByUsername(username));
         return jsonObject;
     }
     @Override
     public JSONObject getVideoListByUser(Integer current, Integer rowCount, HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = fileInfJPA.GetVideoListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs;
+        if (rowCount == -1)
+            fileInfs = fileInfJPA.GetVideoListByUsername(username);
+        else
+            fileInfs = fileInfJPA.GetVideoListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
-        jsonObject.put("total", fileInfs.size());
+        jsonObject.put("total", fileInfJPA.GetVideoNumberByUsername(username));
         return jsonObject;
     }
 
@@ -127,11 +129,15 @@ public class FileServiceImp implements FileService {
     public JSONObject getMusicListByUser(Integer current, Integer rowCount, HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = fileInfJPA.GetMusicListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs;
+        if (rowCount == -1)
+            fileInfs = fileInfJPA.GetMusicListByUsername(username);
+        else
+            fileInfs = fileInfJPA.GetMusicListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
-        jsonObject.put("total", fileInfs.size());
+        jsonObject.put("total", fileInfJPA.GetMusicNumberByUsername(username));
         return jsonObject;
     }
 
@@ -139,11 +145,15 @@ public class FileServiceImp implements FileService {
     public JSONObject getTextByUser(Integer current, Integer rowCount, HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = fileInfJPA.GetTextListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs;
+        if (rowCount == -1)
+            fileInfs = fileInfJPA.GetTextListByUsername(username);
+        else
+            fileInfs = fileInfJPA.GetTextListByUsernameAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
-        jsonObject.put("total", fileInfs.size());
+        jsonObject.put("total", fileInfJPA.GetTextNumberByUsername(username));
         return jsonObject;
     }
 
@@ -151,11 +161,15 @@ public class FileServiceImp implements FileService {
     public JSONObject getTorrentByUser(Integer current, Integer rowCount, HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<FileInf> fileInfs = fileInfJPA.GetTorrentListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        List<FileInf> fileInfs;
+        if (rowCount == -1)
+            fileInfs = fileInfJPA.GetTorrentListByUsername(username);
+        else
+            fileInfs  = fileInfJPA.GetTorrentListByUsernameAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
-        jsonObject.put("total", fileInfs.size());
+        jsonObject.put("total", fileInfJPA.GetTorrentNumberByUsername(username));
         return jsonObject;
     }
 
@@ -164,11 +178,14 @@ public class FileServiceImp implements FileService {
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
         List<FileInf> fileInfs;
-        fileInfs = fileInfJPA.GetOtherListByUsernameAndAndStartRowAndSize(username, current - 1, rowCount);
+        if (rowCount == -1)
+            fileInfs = fileInfJPA.GetOtherListByUsername(username);
+        else
+            fileInfs = fileInfJPA.GetOtherListByUsernameAndStartRowAndSize(username, current - 1, rowCount);
         jsonObject.put("current", current);
         jsonObject.put("rowCount", rowCount);
         jsonObject.put("rows", fileInfs);
-        jsonObject.put("total", fileInfs.size());
+        jsonObject.put("total", fileInfJPA.GetOtherNumberByUsername(username));
         return jsonObject;
     }
 
@@ -194,7 +211,7 @@ public class FileServiceImp implements FileService {
     public JSONObject getLastSevenDaysFileNumber(HttpServletRequest request){
         String username = request.getSession().getAttribute("user").toString();
         JSONObject jsonObject = new JSONObject();
-        List<String> daysList = GetPastDaysList(8);
+        List<String> daysList = GetPastDaysList();
         int i = 0;
         for (String s : daysList) {
             Integer number = fileInfJPA.GetFileNumberByUsernameAndDate(s, username);
@@ -253,9 +270,9 @@ public class FileServiceImp implements FileService {
         }
     }
 
-    private static List<String> GetPastDaysList(int intervals) {
+    private static List<String> GetPastDaysList() {
         ArrayList<String> pastDaysList = new ArrayList<>();
-        for (int i = 0; i <intervals; i++) {
+        for (int i = 0; i < 8; i++) {
             pastDaysList.add(getPastDate(i));
         }
         return pastDaysList;

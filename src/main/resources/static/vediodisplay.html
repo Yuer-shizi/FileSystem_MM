@@ -183,16 +183,13 @@
                             <a href="homepage.html">首页 <span></span></a>
                         </li>
                         <li>
-                            <a href="folderdisplay.html" id="wenjian">文件 <span></span></a>
+                            <a href="folderdisplay.html">文档 <span></span></a>
                         </li>
                         <li>
                             <a href="vediodisplay.html">视频 <span></span></a>
                         </li>
                         <li>
                             <a href="audiodisplay.html">音乐 <span></span></a>
-                        </li>
-                        <li>
-                            <a href="textdisplay.html">文本 <span></span></a>
                         </li>
                         <li>
                             <a href="torrentdisplay.html">种子 <span></span></a>
@@ -230,6 +227,11 @@
 </div>
 <script type="application/javascript">
     var grid = $("#grid-data").bootgrid({
+        labels: {
+            noResults: "暂无数据",
+            infos: "当前第{{ctx.start}}到{{ctx.end}}行，共{{ctx.total}}条",
+            refresh: "刷新"
+        },
         search: false,
         ajax: true,
         post: function () {

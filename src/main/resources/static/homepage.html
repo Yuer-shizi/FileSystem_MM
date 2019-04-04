@@ -243,25 +243,22 @@
     <div class="wp">
         <div class="logos">
             <div class="logo z">
-                <h1><a href="homepage.html"><img src="img/logo.png" alt="???"></a></h1>
+                <a href="homepage.html"><img src="img/logo.png" alt="???"></a>
             </div>
             <div class="nav z">
                 <div class="wp">
                     <ul>
-                        <li>
-                            <a href="homepage.html">首页 <span></span></a>
+                        <li style="">
+                            <a href="homepage.html">首页 </a>
                         </li>
                         <li>
-                            <a href="folderdisplay.html" id="wenjian">文件 <span></span></a>
+                            <a href="folderdisplay.html">文档 <span></span></a>
                         </li>
                         <li>
                             <a href="vediodisplay.html">视频 <span></span></a>
                         </li>
                         <li>
                             <a href="audiodisplay.html">音乐 <span></span></a>
-                        </li>
-                        <li>
-                            <a href="textdisplay.html">文本 <span></span></a>
                         </li>
                         <li>
                             <a href="torrentdisplay.html">种子 <span></span></a>
@@ -279,7 +276,7 @@
     </div>
 </div>
 
-<div class="wp" style="background-color: #363259">
+<div class="wp" style="background-color: #363259;z-index: 100">
     <a class="wp" style="color: #e0e0e0">&nbsp;</a>
     <a id="curr_dir" class="wp" style="color: #e0e0e0"></a>
 </div>
@@ -314,7 +311,11 @@
 </div>
 <script type="application/javascript">
     var grid = $("#grid-data").bootgrid({
-        refresh: false,
+        labels: {
+            noResults: "暂无数据",
+            infos: "当前第{{ctx.start}}到{{ctx.end}}行，共{{ctx.total}}条",
+            refresh: "刷新"
+        },
         search: false,
         ajax: true,
         post: function () {
@@ -454,9 +455,9 @@
                     label: 'Dataset 1'
                 }],
                 labels: [
+                    '文档',
                     '视频',
                     '音乐',
-                    '文本',
                     '种子',
                     '其他'
                 ]
