@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>文档</title>
@@ -87,9 +87,13 @@
         <div class="wp">
             <div class="y" id="ed">
                 <span>
-                    <a class="welcome" href="#" id="wel">welcome!</a>
+                    <a class="welcome" href="#" id="wel">欢迎 - 用户名</a>
                 </span>
                 <span style="color:#8c8d8d">|</span>
+                <span class="usermanament">
+                    <a href="usermanagement.html">用户管理</a>
+                </span>
+                <span class="usermanament" style="color:#8c8d8d">|</span>
                 <span>
                     <a href="index.html" onclick="logoff()">退出</a>
                 </span>
@@ -110,7 +114,11 @@
                         btn1.style.display = "none";
                     else {
                         var wel = document.getElementById("wel");
-                        wel.innerText = "welcome!  " + cookie.username;
+                        wel.innerText = "欢迎 - " + cookie.username;
+                        if (cookie.username === 'admin')
+                            $('.usermanament').show();
+                        else
+                            $('.usermanament').hide();
                     }
                 }
 
@@ -317,6 +325,10 @@
                 },
                 dataType: 'json',
                 success: function (result) {
+                    alert(result.content);
+                    if (result.status === '0') {
+                        window.location.reload();
+                    }
                 },
                 error: function () {
                     alert('服务器异常');
@@ -346,10 +358,8 @@
             success: function (result) {
                 alert(result);
                 window.location.reload();
-                console.log(result);
             },
             error: function (result) {
-                console.log(result);
                 alert('服务器异常' + result);
             }
         });

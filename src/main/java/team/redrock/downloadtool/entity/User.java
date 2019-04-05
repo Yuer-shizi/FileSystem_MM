@@ -13,17 +13,27 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue
-    @Column(name = "id")
-    private Long u_id;
+    private Long id;
 
-    @Column(name = "username")
     private String username;
 
     @JsonIgnore
-    @Column(name = "password")
     private String password;
 
     @Column(name = "identity")
     private int isPrime;
 
+    private String nickname;
+
+    private String phone;
+
+    private String email;
+
+    private String sex;
+
+    private String birthday;
+
+    private String address;
+
+    private String remark;
 }

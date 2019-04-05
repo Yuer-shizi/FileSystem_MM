@@ -1,11 +1,9 @@
 package team.redrock.downloadtool.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.HttpRequest;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import team.redrock.downloadtool.entity.User;
 import team.redrock.downloadtool.service.UserService;
 import team.redrock.downloadtool.utils.Response;
 
@@ -34,7 +32,8 @@ public class UserController {
 
         return userService.userLogin(username,password,request);
     }
-@GetMapping(value = "/exit")
+
+    @GetMapping(value = "/exit")
     public Response userLogoff(HttpServletRequest request, HttpServletResponse response){
         HttpSession session =request.getSession(false);
         session.invalidate();
@@ -45,6 +44,32 @@ public class UserController {
             response.addCookie(cookie);
         }
             return new Response("0", "退出登录成功");
+    }
+
+    @PostMapping(value = "/user-list")
+    public JSONObject userList(@RequestParam("current") Integer current, @RequestParam("rowCount") Integer rowCount) {
+
+        return userService.userList(current, rowCount);
+    }
+
+    @GetMapping(value = "/get-user-by-id")
+    public Response getUserById(@RequestParam Long id) {
+        return userService.getUserById(id);
+    }
+
+    @PostMapping(value = "/add-user")
+    public Response add(User user) {
+        return userService.add(user);
+    }
+
+    @PostMapping(value = "/update-user")
+    public Response update(User user) {
+        return userService.update(user);
+    }
+
+    @PostMapping(value = "/delete-user-by-id")
+    public Response delete(Long id) {
+        return userService.delete(id);
     }
 //    @GetMapping
 //    public String messageForm(Model model,HttpServletRequest request) {

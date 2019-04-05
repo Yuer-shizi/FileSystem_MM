@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -35,13 +34,13 @@
                     <em>
                         <img src="img/user.png">
                     </em>
-                    <form action="" method="post">
-                        <p class="name"><i></i><input type="text" id="username" name="userName" name="userName"
+                    <form onsubmit="return false">
+                        <p class="name"><i></i><input type="text" id="username" name="userName"
                                                       class="userName" placeholder="请输入用户名"></p>
                         <p class="password"><i></i><input id="password" type="password" name="password" class="pwd"
                                                           placeholder="请输入密码"></p>
                         <button onclick="login()">登录</button>
-                        <p class="regist"><span>没有账号?</span><a href="register.html">立即注册</a></p>
+                        <p class="regist"><span>没有账号?</span><a id="register">立即注册</a></p>
                         <p class="resetPassword"><span>忘记密码?</span><a id="resetPassword">重置密码</a></p>
                         <div class="clear"></div>
                     </form>
@@ -70,9 +69,7 @@
             }
         });
         if (response.status === "0") {
-            var date = new Date();
-            date.setTime(date.getTime() + 100);
-            setCookie("user", response.content, date);
+            setCookie("user", JSON.stringify(response.content), 30);
             window.location.href = address + "homepage.html";
             window.event.returnValue = false;
         }

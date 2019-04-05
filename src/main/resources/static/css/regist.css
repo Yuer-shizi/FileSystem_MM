@@ -18,12 +18,12 @@ article{
 }
 article{
 	width: 400px;
-	margin: 100px auto 0px auto;	
+	margin: 100px auto 0 auto;
 }
 article h1{width: 400px;color: #5593ce;text-align: center;margin-bottom: 15px;font-weight: normal;}
 article h1 em{display: inline-block;color:#5593ce;font-size: 25px;}
 .main{
-	padding: 40px 0px;
+	padding: 40px 0;
 	width: 100%;
 	background-color: rgba(24, 80, 137, 0.77);
 }

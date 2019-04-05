@@ -2,15 +2,12 @@ package team.redrock.downloadtool.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import team.redrock.downloadtool.jpa.FileInfJPA;
 import team.redrock.downloadtool.service.FileService;
-import team.redrock.downloadtool.utils.CutPic;
-import team.redrock.downloadtool.utils.Response;
-import team.redrock.downloadtool.utils.Utility;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;

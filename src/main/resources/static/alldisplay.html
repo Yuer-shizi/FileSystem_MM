@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>全部</title>
@@ -87,9 +87,13 @@
         <div class="wp">
             <div class="y" id="ed">
                 <span>
-                    <a class="welcome" href="#" id="wel">welcome!</a>
+                    <a class="welcome" href="#" id="wel">欢迎 - 用户名</a>
                 </span>
                 <span style="color:#8c8d8d">|</span>
+                <span class="usermanament">
+                    <a href="usermanagement.html">用户管理</a>
+                </span>
+                <span class="usermanament" style="color:#8c8d8d">|</span>
                 <span>
                     <a href="index.html" onclick="logoff()">退出</a>
                 </span>
@@ -110,14 +114,18 @@
                         btn1.style.display = "none";
                     else {
                         var wel = document.getElementById("wel");
-                        wel.innerText = "welcome!  " + cookie.username;
+                        wel.innerText = "欢迎 - " + cookie.username;
+                        if (cookie.username === 'admin')
+                            $('.usermanament').show();
+                        else
+                            $('.usermanament').hide();
                     }
                 }
 
                 btn();
 
                 function clearAllCookie() {
-                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    var keys = document.cookie.match(/[^ =;]+(?==)/g);
                     if (keys) {
                         for (var i = keys.length; i--;)
                             document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
@@ -243,8 +251,8 @@
         formatters: {
             "commands": function (column, row) {
                 return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">删除文件</span></button>";
+                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-download\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
+                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-trash\">删除文件</span></button>";
             }
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
@@ -314,6 +322,10 @@
                 },
                 dataType: 'json',
                 success: function (result) {
+                    alert(result.content);
+                    if (result.status === '0') {
+                        window.location.reload();
+                    }
                 },
                 error: function () {
                     alert('服务器异常');

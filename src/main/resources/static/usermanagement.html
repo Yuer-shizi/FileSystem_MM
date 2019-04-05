@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>音乐</title>
+    <title>用户管理</title>
     <link rel="stylesheet" href="js/assets/css/bootstrap.css">
     <link rel="stylesheet" href="js/bootgrid/jquery.bootgrid.css">
     <link href="js/assets/css/font-awesome.css" rel="stylesheet">
@@ -15,69 +15,80 @@
     <script src="js/bootgrid/jquery.bootgrid.fa.js"></script>
 </head>
 <body>
-<!--显示文件信息模态框-->
-<div class="modal fade" id="showFileInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!--修改个人信息模态框-->
+<div class="modal fade" id="UserForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="showFileInfoModalLabel">查看详情：</h4>
+                <h4 class="modal-title" id="myModalLabel">添加用户：</h4>
             </div>
             <div class="modal-body">
+                <input type="hidden" title="id" name="id" id="id" aria-disabled="true"/>
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">文件Id:</label>
-                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileId1"></label>
+                    <label for="nickname" class="col-sm-3 control-label text-right">昵称:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="nickname" id="nickname"/>
+                    </div>
                 </div>
+
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">文件名:</label>
-                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileName1"></label>
+                    <label for="username" class="col-sm-3 control-label text-right">登录名:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="username" id="username"/>
+                    </div>
                 </div>
+
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">文件类型:</label>
-                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileSuffix1"></label>
+                    <label for="phone" class="col-sm-3 control-label text-right">电话:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="phone" id="phone"/>
+                    </div>
                 </div>
+
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">创建时间:</label>
-                    <label class="col-sm-8 control-label text-left" id="showFileInfoFileTime1"></label>
+                    <label for="email" class="col-sm-3 control-label text-right">邮箱:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="email" id="email"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="sex" class="col-sm-3 control-label text-right">性别:</label>
+                    <div class="col-sm-8">
+                        <select id="sex" name="sex" class="form-control" data-width="100%">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="birthday" class="col-sm-3 control-label text-right">生日:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="birthday" id="birthday"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="address" class="col-sm-3 control-label text-right">地址:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="address" id="address"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="remark" class="col-sm-3 control-label text-right">备注:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="remark" id="remark"/>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="submitForm" type="button" class="btn btn-primary"></button>
             </div>
-        </div>
-    </div>
-</div>
-
-<!--上传文件模态框-->
-<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="uploadFileModalLabel">上传文件：</h4>
-            </div>
-            <form id="uploadform" enctype="multipart/form-data" onsubmit="return false">
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-sm-3 control-label text-right">选择文件:</label>
-                        <div class="col-sm-8">
-                            <input type="file" name="file" id="single_file1"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="filename1" class="col-sm-3 control-label text-right">备注:</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="filename" id="filename1"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button onclick="upload()" class="btn btn-primary">上传</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
@@ -106,7 +117,6 @@
 
                 var usersession = getCookie("user");
                 var cookie = JSON.parse(usersession);
-                console.log(cookie);
                 var btn1 = document.getElementById('ed');
 
                 function btn() {
@@ -125,7 +135,7 @@
                 btn();
 
                 function clearAllCookie() {
-                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    var keys = document.cookie.match(/[^ =;]+(?==)/g);
                     if (keys) {
                         for (var i = keys.length; i--;)
                             document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
@@ -208,7 +218,7 @@
                             <a href="otherdisplay.html">其他 <span></span></a>
                         </li>
                         <li>
-                            <button class="buttonEx" id="uploadFileBtn">上传文件</button>
+                            <button class="buttonEx" id="addUser">添加用户</button>
                         </li>
                     </ul>
                 </div>
@@ -225,17 +235,18 @@
     <table id="grid-data" class="table table-condensed table-hover table-striped">
         <thead>
         <tr>
-            <th style="width: 15%" data-column-id="fileid" data-type="numeric"
-                data-identifier="true">文件Id
-            </th>
-            <th style="width: 35%" data-column-id="filename">文件名</th>
-            <th style="width: 35%" data-column-id="remark">备注</th>
-            <th style="width: 15%" data-column-id="commands" data-formatter="commands" data-sortable="false">操作</th>
+            <th data-width="10%" data-column-id="id" data-type="numeric" data-identifier="true">用户Id</th>
+            <th data-width="15%" data-column-id="username">用户名</th>
+            <th data-width="15%" data-column-id="nickname">昵称</th>
+            <th data-width="15%" data-column-id="phone">电话</th>
+            <th data-width="15%" data-column-id="remark">备注</th>
+            <th data-column-id="commands" data-formatter="commands" data-sortable="false">操作</th>
         </tr>
         </thead>
     </table>
 </div>
 <script type="application/javascript">
+    var $UserForm = $('#UserForm');
     var grid = $("#grid-data").bootgrid({
         labels: {
             noResults: "暂无数据",
@@ -247,12 +258,11 @@
         post: function () {
             return {};
         },
-        url: address + "get-music-list-by-user",
+        url: address + "user-list",
         formatters: {
             "commands": function (column, row) {
-                return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">删除文件</span></button>";
+                return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
+                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-search\">删除用户</span></button>";
             }
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
@@ -261,18 +271,30 @@
             $.ajax({
                 async: false,
                 type: 'GET',
-                url: address + "get-file-by-fileid",
+                url: address + "get-user-by-id",
                 data: {
-                    "fileid": id
+                    "id": id
                 },
                 dataType: 'json',
                 success: function (result) {
-                    var fileinfo = eval("(" + result.content + ")");
-                    $('#showFileInfoFileId1').text(fileinfo.fileid);
-                    $('#showFileInfoFileName1').text(fileinfo.filename);
-                    $('#showFileInfoFileSuffix1').text(fileinfo.suffix);
-                    $('#showFileInfoFileTime1').text(fileinfo.time);
-                    $('#showFileInfoModal').modal("show");
+                    if (result.status === '0') {
+                        var fileinfo = result.content;
+                        $UserForm.find('h4').text('用户信息');
+                        $('#submitForm').text('修改');
+
+                        $('#id').val(fileinfo.id);
+                        $('#nickname').val(fileinfo.nickname);
+                        $('#username').val(fileinfo.username);
+                        $('#phone').val(fileinfo.phone);
+                        $('#email').val(fileinfo.email);
+                        $('#sex').val(fileinfo.sex);
+                        $('#birthday').val(fileinfo.birthday);
+                        $('#address').val(fileinfo.address);
+                        $('#remark').val(fileinfo.remark);
+
+                        $UserForm.modal("show");
+                    } else
+                        alert(result.content);
                 },
                 error: function () {
                     alert('服务器异常');
@@ -314,11 +336,10 @@
         }).end().find(".command-delete").on("click", function () {
             var id = $(this).data("row-id");
             $.ajax({
-                async: false,
                 type: 'POST',
-                url: address + "delete-file-by-fileid",
+                url: address + "delete-user-by-id",
                 data: {
-                    "fileid": id
+                    "id": id
                 },
                 dataType: 'json',
                 success: function (result) {
@@ -334,35 +355,69 @@
         });
     });
 
-    $('#uploadFileBtn').click(function () {
-        $('#uploadFileModal').modal("show");
+    $('#addUser').on('click',function () {
+        $UserForm.find('input').text('');
+        $('#sex').val('男');
+
+        $UserForm.find('h4').text('添加用户');
+        $('#submitForm').text('添加');
+        $UserForm.modal("show");
     });
 
-    function upload() {
-        var formData = new FormData();
-        var file = document.getElementById("single_file1").files[0];
-        var name = $("#filename1").val();
-        formData.append("file", file);
-        formData.append("filename", name);
+    $('#submitForm').click(function () {
+        var username = $('#username').val();
+        if (username === '') {
+            alert("用户名不能为空！");
+            return;
+        }
+        var submitName = $('#submitForm').text();
+        var formData = {
+            nickname: $('#nickname').val(),
+            username: username,
+            phone: $('#phone').val(),
+            email: $('#email').val(),
+            sex: $('#sex').val(),
+            birthday: $('#birthday').val(),
+            address: $('#address').val(),
+            remark: $('#remark').val()
+        };
+        if (submitName === '添加') {
+            $.ajax({
+                type: 'POST',
+                url: address + "add-user",
+                data: formData,
+                success: function (result) {
+                    alert(result.content);
+                    if (result.status === '0') {
+                        $UserForm.modal("hide");
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    alert('服务器异常');
+                }
+            });
+        }
+        if (submitName === '修改') {
+            formData.id = $('#id').val();
+            $.ajax({
+                type: 'POST',
+                url: address + "update-user",
+                data: formData,
+                success: function (result) {
+                    alert(result.content);
+                    if (result.status === '0') {
+                        $UserForm.modal("hide");
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    alert('服务器异常');
+                }
+            });
+        }
+    })
 
-        $.ajax({
-            async: false,
-            type: "POST",
-            url: address + "upload",
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function (result) {
-                alert(result);
-                window.location.reload();
-                console.log(result);
-            },
-            error: function (result) {
-                console.log(result);
-                alert('服务器异常' + result);
-            }
-        });
-    }
 </script>
 </body>
 </html>

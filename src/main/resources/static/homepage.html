@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
@@ -90,9 +90,13 @@
         <div class="wp">
             <div class="y" id="ed">
                 <span>
-                    <a class="welcome" href="#" id="wel">welcome!</a>
+                    <a class="welcome" href="#" id="wel">欢迎 - 用户名</a>
                 </span>
                 <span style="color:#8c8d8d">|</span>
+                <span class="usermanament">
+                    <a href="usermanagement.html">用户管理</a>
+                </span>
+                <span class="usermanament" style="color:#8c8d8d">|</span>
                 <span>
                     <a href="index.html" onclick="logoff()">退出</a>
                 </span>
@@ -105,22 +109,25 @@
 
                 var usersession = getCookie("user");
                 var cookie = JSON.parse(usersession);
-                console.log(cookie);
                 var btn1 = document.getElementById('ed');
 
-                function btn() {
+                function addName() {
                     if (cookie === undefined)
                         btn1.style.display = "none";
                     else {
                         var wel = document.getElementById("wel");
-                        wel.innerText = "welcome!  " + cookie.username;
+                        wel.innerText = "欢迎 - " + cookie.username;
+                        if (cookie.username === 'admin')
+                            $('.usermanament').show();
+                        else
+                            $('.usermanament').hide();
                     }
                 }
 
-                btn();
+                addName();
 
                 function clearAllCookie() {
-                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    var keys = document.cookie.match(/[^ =;]+(?==)/g);
                     if (keys) {
                         for (var i = keys.length; i--;)
                             document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
@@ -181,7 +188,7 @@
             <div class="nav z">
                 <div class="wp">
                     <ul>
-                        <li>
+                        <li style="background-color: #00a0e9;">
                             <a href="homepage.html">首页 <span></span></a>
                         </li>
                         <li>
