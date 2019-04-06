@@ -20,14 +20,13 @@ public class DownloadController {
     @Autowired
     DownloadJPA downloadJPA;
 
-    @RequestMapping(value = "/download/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/download/{name}")
     public void getDownload( @PathVariable(value = "name") String name,HttpServletRequest request, HttpServletResponse response) {
         // Get your file stream from wherever.
         if (name == null)
             System.out.println("name no found");
         else {
             String fullPath = "D://temp/" + name;                  //注意要是本地的
-
             File downloadFile = new File(fullPath);
 
             ServletContext context = request.getServletContext();
@@ -42,9 +41,8 @@ public class DownloadController {
             response.setContentType(mimeType);
             // response.setContentLength((int) downloadFile.length());
             // set headers for the response
-            String headerKey = "Content-Disposition";
             String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
-            response.setHeader(headerKey, headerValue);
+            response.setHeader("Content-Disposition", headerValue);
             // 解析断点续传相关信息
             response.setHeader("Accept-Ranges", "bytes");
             long downloadSize = downloadFile.length();
@@ -124,8 +122,8 @@ public class DownloadController {
     @GetMapping("/download-file-by-fileid")
     public void downloadFile(@RequestParam("fileid") Integer fileid, HttpServletRequest request, HttpServletResponse response) {
         File file = new File(fileInfJPA.findByFileid(fileid).getFilepath());
-        response.setHeader("content-type", "application/octet-stream");
-        response.setContentType("application/octet-stream");
+//        response.setHeader("content-type", "application/octet-stream");
+        response.setContentType("application/force-download");
         response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
 
         InputStream in = null;

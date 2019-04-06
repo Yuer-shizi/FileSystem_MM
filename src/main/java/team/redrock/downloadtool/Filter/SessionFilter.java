@@ -15,8 +15,10 @@ public class SessionFilter implements Filter {
 
     private String[] includeUrls = new String[]{"/user/","/user/index.html","/user/register.html","/user/js/bootstrap.min.css",
             "/user/js/bootgrid/jquery.bootgrid.css","/user/js/bootgrid/jquery.bootgrid.fa.js","/user/js/bootgrid/jquery.bootgrid.js",
-    "/user/css/style.css","/user/css/login.css","/user/css/regist.css","/user/js/util.js", "user/js/chartutils", "user/js/Chart.js", "/user/js/bootstrap.min.js","/user/js/jquery.min.js","/user/list","/user/rootlist","/user/img/logo.png","/user/img/bg.png","/user/img/logoImage.png","/user/img/user.png","/user/img/user1.png","/user/img/password1.png","/user/img/rememberPassword1.png","/user/img/rememberPassword2.png","/user/img/bj.gif",
-    "/user/login","/user/register","/user/vedio","/user/audio","/user/text"};
+            "/user/css/style.css", "/user/css/login.css", "/user/css/regist.css", "/user/js/util.js", "user/js/chartutils", "user/js/Chart.js",
+            "/user/js/bootstrap.min.js", "/user/js/jquery.min.js", "/user/list", "/user/rootlist", "/user/img/logo.png", "/user/img/bg.png",
+            "/user/img/logoImage.png", "/user/img/user.png", "/user/img/user1.png", "/user/img/password1.png", "/user/img/rememberPassword1.png",
+            "/user/img/rememberPassword2.png", "/user/img/bj.gif", "/user/login", "/user/text"};
 
     private boolean isNeedFilter(String uri) {
         for (String includeUrl : includeUrls) {

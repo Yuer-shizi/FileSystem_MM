@@ -9,5 +9,5 @@ function setCookie(name, value, days) {
 
 function getCookie(name) {
     var v = window.document.cookie.match('(^| )' + name + '=([^;]*)(;|$)');
-    return v ? v[2] : null;
+    return v ? JSON.parse(v[2]) : null;
 }

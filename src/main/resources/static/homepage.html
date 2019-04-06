@@ -17,8 +17,8 @@
     <script src="js/chartutils.js"></script>
 </head>
 <body>
-<!--修改个人信息模态框-->
-<div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!--个人信息模态框-->
+<div class="modal fade" id="UserForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -27,26 +27,39 @@
                 <h4 class="modal-title" id="myModalLabel">修改个人信息：</h4>
             </div>
             <div class="modal-body">
+                <input type="hidden" title="id" name="id" id="id" aria-disabled="true"/>
                 <div class="form-group row">
-                    <label for="resetPassworduserName1" class="col-sm-3 control-label text-right">昵称:</label>
+                    <label for="nickname" class="col-sm-3 control-label text-right">昵称:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="resetPassworduserName"
-                               id="resetPassworduserName1"/>
+                        <input type="text" class="form-control" name="nickname" id="nickname"/>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="resetPassworduserLoginName1" class="col-sm-3 control-label text-right">登录名:</label>
+                    <label for="username" class="col-sm-3 control-label text-right">登录名:</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="resetPassworduserLoginName"
-                               id="resetPassworduserLoginName1"/>
+                        <input type="text" class="form-control" name="username" id="username"/>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="resetPassworduserType1" class="col-sm-3 control-label text-right">性别:</label>
-                    <div class="col-sm-5">
-                        <select id="resetPassworduserType1" class="selectpicker">
+                    <label for="phone" class="col-sm-3 control-label text-right">电话:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="phone" id="phone"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="email" class="col-sm-3 control-label text-right">邮箱:</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="email" id="email"/>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="sex" class="col-sm-3 control-label text-right">性别:</label>
+                    <div class="col-sm-8">
+                        <select id="sex" name="sex" class="form-control" data-width="100%">
                             <option value="男">男</option>
                             <option value="女">女</option>
                         </select>
@@ -54,32 +67,65 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">QQ:</label>
+                    <label for="birthday" class="col-sm-3 control-label text-right">生日:</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="text" name="resetPassworduserQQ" id="resetPassworduserQQ1"
-                               placeholder=""/>
+                        <input class="form-control" type="text" name="birthday" id="birthday"/>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">联系电话:</label>
+                    <label for="address" class="col-sm-3 control-label text-right">地址:</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="text" name="resetPassworduserTel" id="resetPassworduserTel1"
-                               placeholder=""/>
+                        <input class="form-control" type="text" name="address" id="address"/>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-3 control-label text-right">邮箱:</label>
+                    <label for="remark" class="col-sm-3 control-label text-right">备注:</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="text" name="resetPassworduserEmail"
-                               id="resetPassworduserEmail1" placeholder=""/>
+                        <input class="form-control" type="text" name="remark" id="remark"/>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button id="updateUserMessageSubmit" type="button" class="btn btn-primary">修改</button>
+                <button id="submitForm" type="button" class="btn btn-primary">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改密码模态框-->
+<div class="modal fade" id="changePasswordModel" tabindex="-1" role="dialog" aria-labelledby="changeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="changeModalLabel">修改密码：</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="oldPassword" class="col-sm-3 control-label text-right">密码:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="oldPassword" id="oldPassword"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="newPassword" class="col-sm-3 control-label text-right">新密码:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="newPassword" id="newPassword"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="newPasswordAgain" class="col-sm-3 control-label text-right">确认密码:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="newPasswordAgain" id="newPasswordAgain"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="changePassword" type="button" class="btn btn-primary">修改</button>
             </div>
         </div>
     </div>
@@ -93,6 +139,10 @@
                     <a class="welcome" href="#" id="wel">欢迎 - 用户名</a>
                 </span>
                 <span style="color:#8c8d8d">|</span>
+                <span>
+                    <a id="changePawwword" onclick="showModel()">修改密码</a>
+                </span>
+                <span style="color:#8c8d8d">|</span>
                 <span class="usermanament">
                     <a href="usermanagement.html">用户管理</a>
                 </span>
@@ -103,28 +153,23 @@
             </div>
 
             <script th:inline="javascript">
-
                 /*<![CDATA[*/
                 // var usersession =[[${session.user}]];
 
-                var usersession = getCookie("user");
-                var cookie = JSON.parse(usersession);
+                var cookie = getCookie("user");
                 var btn1 = document.getElementById('ed');
 
-                function addName() {
-                    if (cookie === undefined)
-                        btn1.style.display = "none";
-                    else {
-                        var wel = document.getElementById("wel");
-                        wel.innerText = "欢迎 - " + cookie.username;
-                        if (cookie.username === 'admin')
-                            $('.usermanament').show();
-                        else
-                            $('.usermanament').hide();
-                    }
+                // 显示用户名
+                if (cookie === undefined)
+                    btn1.style.display = "none";
+                else {
+                    var wel = document.getElementById("wel");
+                    wel.innerText = "欢迎 - " + cookie.username;
+                    if (cookie.username === 'admin')
+                        $('.usermanament').show();
+                    else
+                        $('.usermanament').hide();
                 }
-
-                addName();
 
                 function clearAllCookie() {
                     var keys = document.cookie.match(/[^ =;]+(?==)/g);
@@ -133,25 +178,6 @@
                             document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
                     }
                 }
-
-                function getUrlPath() {
-                    var url = document.location.toString();
-                    if (url.indexOf("/") !== -1) {
-                        url = url.substring(0, url.lastIndexOf("/"));
-                    }
-                    var arrUrl = url.split("//");
-
-                    var start = arrUrl[1].indexOf("/");
-                    var relUrl = arrUrl[1].substring(start);
-
-                    if (relUrl.indexOf("?") !== -1) {
-                        relUrl = relUrl.split("?")[0];
-                    }
-                    return relUrl.substring(6);
-                }
-
-                console.log(getUrlPath());
-
 
                 function logoff() {
                     var response = {};
@@ -239,9 +265,89 @@
     </div>
 </div>
 <script type="application/javascript">
+    var $changePasswordModel = $('#changePasswordModel');
+    function showModel() {
+        $changePasswordModel.find('input').text('');
+        $changePasswordModel.modal('show');
+    }
+    $('#changePassword').click(function () {
+        var newPassword = $('#newPassword').val();
+        if (!(/[\w]{6,}/.test(newPassword))) {
+            alert('密码只能包含A-Z，a-z，0-9和‘_’且至少6位！');
+            return;
+        }
+        if (newPassword !== $('#newPasswordAgain').val()) {
+            alert('两次输入的新密码不同！');
+            return;
+        }
+        var pass = {
+            username: getCookie("user").username,
+            password: $('#oldPassword').val().trim(),
+            newPassword: newPassword
+        };
+        $.ajax({
+            type: 'POST',
+            url: address + "change-password",
+            dataType: 'json',
+            data: pass,
+            success: function (result) {
+                alert(result.content);
+                if (result.status === '0') {
+                    $changePasswordModel.modal('hide');
+                }
+            },
+            error: function () {
+                alert('服务器异常');
+            }
+        });
+    });
 
+    var $UserForm = $('#UserForm');
     $('#updateUserMessage').click(function () {
-        $('#resetPasswordModal').modal("show");
+        var userinfo = getCookie('user');
+        $('#id').val(userinfo.id);
+        $('#nickname').val(userinfo.nickname);
+        $('#username').val(userinfo.username);
+        $('#phone').val(userinfo.phone);
+        $('#email').val(userinfo.email);
+        $('#sex').val(userinfo.sex);
+        $('#birthday').val(userinfo.birthday);
+        $('#address').val(userinfo.address);
+        $('#remark').val(userinfo.remark);
+
+        $UserForm.modal("show");
+    });
+    $('#submitForm').click(function () {
+        var username = $('#username').val();
+        if (username === '') {
+            alert("用户名不能为空！");
+            return;
+        }
+        var formData = {
+            id: $('#id').val(),
+            nickname: $('#nickname').val(),
+            username: username,
+            phone: $('#phone').val(),
+            email: $('#email').val(),
+            sex: $('#sex').val(),
+            birthday: $('#birthday').val(),
+            address: $('#address').val(),
+            remark: $('#remark').val()
+        };
+        $.ajax({
+            type: 'POST',
+            url: address + "update-user",
+            data: formData,
+            success: function (result) {
+                alert(result.content);
+                if (result.status === '0') {
+                    $UserForm.modal("hide");
+                }
+            },
+            error: function () {
+                alert('服务器异常');
+            }
+        });
     });
 
     function initPie() {

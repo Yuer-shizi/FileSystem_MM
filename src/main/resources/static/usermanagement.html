@@ -15,7 +15,7 @@
     <script src="js/bootgrid/jquery.bootgrid.fa.js"></script>
 </head>
 <body>
-<!--修改个人信息模态框-->
+<!--个人信息模态框-->
 <div class="modal fade" id="UserForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
@@ -101,8 +101,8 @@
                     <a class="welcome" href="#" id="wel">欢迎 - 用户名</a>
                 </span>
                 <span style="color:#8c8d8d">|</span>
-                <span class="usermanament">
-                    <a href="usermanagement.html">用户管理</a>
+                <span class="usermanament" style="background-color: #00a0e9;">
+                    <a href="usermanagement.html" style="color: rgb(40, 40, 40);">用户管理</a>
                 </span>
                 <span class="usermanament" style="color:#8c8d8d">|</span>
                 <span>
@@ -115,8 +115,7 @@
                 /*<![CDATA[*/
                 // var usersession =[[${session.user}]];
 
-                var usersession = getCookie("user");
-                var cookie = JSON.parse(usersession);
+                var cookie = getCookie("user");
                 var btn1 = document.getElementById('ed');
 
                 function btn() {
@@ -262,7 +261,8 @@
         formatters: {
             "commands": function (column, row) {
                 return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-search\">删除用户</span></button>";
+                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-reset\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-search\">重置密码</span></button>" +
+                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-delete\">删除用户</span></button>";
             }
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
@@ -300,39 +300,22 @@
                     alert('服务器异常');
                 }
             });
-        }).end().find(".command-finshed").on("click", function () {
+        }).end().find(".command-reset").on("click", function () {
             var id = $(this).data("row-id");
-            var fileName;
-
             $.ajax({
-                async: false,
-                type: 'GET',
-                url: address + "get-file-by-fileid",
+                type: 'POST',
+                url: address + "reset-password-by-id",
                 data: {
-                    "fileid": id
+                    "id": id
                 },
                 dataType: 'json',
                 success: function (result) {
-                    var fileinfo = eval("(" + result.content + ")");
-                    fileName = fileinfo.filename;
+                    alert(result.content);
                 },
                 error: function () {
                     alert('服务器异常');
                 }
             });
-
-            $.get(address + "download-file-by-fileid", {fileid: id},
-                function (data) {
-                    var blob = new Blob([data], {type: "application/x-msdownload"});
-                    // 创造一个连接以模仿点击下载过程
-                    var a = document.createElement("a");
-                    document.body.appendChild(a);
-                    a.download = fileName;
-                    a.href = URL.createObjectURL(blob);
-                    a.click();
-                    URL.revokeObjectURL(a.href);
-                    document.body.removeChild(a);
-                });
         }).end().find(".command-delete").on("click", function () {
             var id = $(this).data("row-id");
             $.ajax({

@@ -48,9 +48,10 @@ body {
 }
 
 .top {
+    font-size: medium;
     width: 100%;
-    height: 24px;
-    line-height: 24px;
+    height: 30px;
+    line-height: 30px;
     background: #27292c;
     color: #d8d8d8;
 }

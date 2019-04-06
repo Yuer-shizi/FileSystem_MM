@@ -11,6 +11,7 @@ import team.redrock.downloadtool.utils.Response;
 import team.redrock.downloadtool.utils.Utility;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class UserService {
         if (Utility.IsNull(password)) {
             return new Response("-1", "密码不能为空！");
         }
-        if (userJPA.findByUserName(username) != null) {
+        if (userJPA.findByUsername(username) != null) {
             return new Response("-1", "用户名已存在！");
         }
         User user = new User();
@@ -47,22 +48,16 @@ public class UserService {
         if (Utility.IsNull((password))) {
             return new Response("-1", "密码不能为空");
         }
-        User user = userJPA.findByUserName(username);
+        User user = userJPA.findByUsername(username);
         if (user == null) {
             return new Response("-1", "用户名不存在");
         } else {
             if (!user.getPassword().equals(password)) {
                 return new Response("-1", "密码错误");
             } else {
-//                if (request.getSession().getAttribute("user").equals(username)) {
-//                    System.out.println("得到sessionl");
-//                    return new Response("-1", "用户已登录");
-//                } else {
                 request.getSession().setAttribute("user", user.getUsername());
-                String user1 = (String) request.getSession().getAttribute("user");
-                System.out.println("session为" + user1);
-
-//                System.out.println("当前用户登录"+request.getSession().getAttribute("user_session"));
+//                String user1 = (String) request.getSession().getAttribute("user");
+//                System.out.println("session为" + user1);
                 return new Response("0", user);
             }
         }
@@ -89,7 +84,7 @@ public class UserService {
     }
 
     public Response add(User user) {
-        if (userJPA.findByUserName(user.getUsername()) != null)
+        if (userJPA.findByUsername(user.getUsername()) != null)
             return new Response("-1", "用户名已存在");
         user.setPassword("123456");
         user.setIsPrime(0);
@@ -111,5 +106,24 @@ public class UserService {
     public Response delete(Long id) {
         userJPA.deleteById(id);
         return new Response("0", "删除成功");
+    }
+
+    public Response changePassword(User user, String newPassword) {
+
+        User byUsername = userJPA.findByUsername(user.getUsername());
+        if (!byUsername.getPassword().equals(user.getPassword())) {
+            return new Response("-1", "密码错误");
+        } else {
+            byUsername.setPassword(newPassword);
+            userJPA.save(byUsername);
+        }
+        return new Response("0", "密码修改成功");
+    }
+
+    @Transactional
+    public Response resetPassword(Long id) {
+        if (userJPA.resetPassword(id) != 1)
+            return new Response("-1", "密码重置失败");
+        return new Response("0", "密码重置成功，新密码是123456");
     }
 }

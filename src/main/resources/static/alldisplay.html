@@ -104,8 +104,7 @@
                 /*<![CDATA[*/
                 // var usersession =[[${session.user}]];
 
-                var usersession = getCookie("user");
-                var cookie = JSON.parse(usersession);
+                var cookie = getCookie("user");
                 console.log(cookie);
                 var btn1 = document.getElementById('ed');
 
@@ -152,7 +151,6 @@
 
 
                 function logoff() {
-                    var response = {};
                     $.ajax({
                         async: false,
                         type: 'GET',
@@ -160,19 +158,16 @@
                         data: String,
                         dataType: 'json',
                         success: function (result) {
-                            response = result;
-                            clearAllCookie()
+                            alert(result.content);
+                            if (result.status === "0") {
+                                clearAllCookie();
+                            }
                         },
                         error: function (error) {
                             console.log(error);
                             alert('服务器异常');
                         }
                     });
-                    console.log(response.content);
-                    if (response.status === "0") {
-                        clearAllCookie();
-                        alert(response.content);
-                    }
                 }
             </script>
             <script src="js/util.js"></script>
@@ -189,7 +184,7 @@
                         <li>
                             <a href="homepage.html">首页 <span></span></a>
                         </li>
-                        <li>
+                        <li style="background-color: #00a0e9;">
                             <a href="alldisplay.html">全部 <span></span></a>
                         </li>
                         <li>
@@ -301,7 +296,7 @@
 
             $.get(address + "download-file-by-fileid", {fileid: id},
                 function (data) {
-                    var blob = new Blob([data], {type: "application/x-msdownload"});
+                    var blob = new Blob([data], {type: "application/force-download"});
                     // 创造一个连接以模仿点击下载过程
                     var a = document.createElement("a");
                     document.body.appendChild(a);

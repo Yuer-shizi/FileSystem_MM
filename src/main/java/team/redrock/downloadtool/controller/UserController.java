@@ -19,17 +19,12 @@ public class UserController {
     UserService userService;
 
     @PostMapping(value = "/register")
-    public Response userRegister(@RequestParam("username")String username,
-                                                       @RequestParam("password")String password){
-
+    public Response userRegister(@RequestParam String username, @RequestParam String password){
         return userService.userRegister(username,password);
     }
 
     @PostMapping(value = "/login")
-    public Response userLogin(@RequestParam("username") String username,
-                              @RequestParam("password") String password,
-                              HttpServletRequest request){
-
+    public Response userLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
         return userService.userLogin(username,password,request);
     }
 
@@ -47,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/user-list")
-    public JSONObject userList(@RequestParam("current") Integer current, @RequestParam("rowCount") Integer rowCount) {
+    public JSONObject userList(@RequestParam Integer current, @RequestParam Integer rowCount) {
 
         return userService.userList(current, rowCount);
     }
@@ -71,20 +66,15 @@ public class UserController {
     public Response delete(Long id) {
         return userService.delete(id);
     }
-//    @GetMapping
-//    public String messageForm(Model model,HttpServletRequest request) {
-//
-//        model.addAttribute("username",request.getSession().getAttribute("user_session"));               //必须加这个，使得post传入的数据有一个容器
-////        model.addAttribute("FileInfList",redisService.readMsg());
-//
-//        return "msgboard";
-//    }
-//    @GetMapping("/login")
-//    public void toLogin(){
-//
-//    }
-//    @GetMapping("/register")
-//    public void toRegister(){
-//    }
+
+    @PostMapping(value = "/change-password")
+    public Response changePassword(User user, String newPassword) {
+        return userService.changePassword(user, newPassword);
+    }
+
+    @PostMapping(value = "/reset-password-by-id")
+    public Response resetPassword(Long id) {
+        return userService.resetPassword(id);
+    }
 
 }

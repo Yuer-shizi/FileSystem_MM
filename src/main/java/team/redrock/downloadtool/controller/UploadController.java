@@ -42,15 +42,8 @@ public class UploadController {
         try {
             file.transferTo(dest);
             fileService.fileUpload(fileName, filePath, suffixName, remark, username);
-//            if(Utility.isVedio(suffixName).equals("vedio"))
-//            {
-//                CutPic.getfirstPic(fileName,name);
-//                fileService.savePic(fileName,suffixName);
-//            }
             return "上传成功";
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
         return "上传失败";
