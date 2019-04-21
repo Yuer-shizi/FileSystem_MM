@@ -105,7 +105,6 @@
                 // var usersession =[[${session.user}]];
 
                 var cookie = getCookie("user");
-                console.log(cookie);
                 var btn1 = document.getElementById('ed');
 
                 function btn() {
@@ -124,7 +123,7 @@
                 btn();
 
                 function clearAllCookie() {
-                    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+                    var keys = document.cookie.match(/[^ =;]+(?==)/g);
                     if (keys) {
                         for (var i = keys.length; i--;)
                             document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
@@ -151,7 +150,6 @@
 
 
                 function logoff() {
-                    var response = {};
                     $.ajax({
                         async: false,
                         type: 'GET',
@@ -159,19 +157,16 @@
                         data: String,
                         dataType: 'json',
                         success: function (result) {
-                            response = result;
-                            clearAllCookie()
+                            alert(result.content);
+                            if (result.status === "0") {
+                                clearAllCookie();
+                            }
                         },
                         error: function (error) {
                             console.log(error);
                             alert('服务器异常');
                         }
                     });
-                    console.log(response.content);
-                    if (response.status === "0") {
-                        clearAllCookie();
-                        alert(response.content);
-                    }
                 }
             </script>
             <script src="js/util.js"></script>
@@ -250,8 +245,8 @@
         formatters: {
             "commands": function (column, row) {
                 return "<button type=\"button\" style='background-color: #2EA7EB' class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-th-list\">查看详情</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
-                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-search\">删除文件</span></button>";
+                    "<button type=\"button\" style='background-color: #8d8888' class=\"btn btn-xs btn-default command-finshed\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-download\">下载文件</span></button>&nbsp;&nbsp;&nbsp;" +
+                    "<button type=\"button\" style='background-color: red' class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.fileid + "\"><span class=\"fa fa-trash-o\">删除文件</span></button>";
             }
         }
     }).on("loaded.rs.jquery.bootgrid", function () {
